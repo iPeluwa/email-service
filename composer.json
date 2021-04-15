@@ -48,6 +48,7 @@
     "minimum-stability": "dev",
     "prefer-stable": true,
     "scripts": {
+        "postinstall": ["npm run production"],
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
             "@php artisan package:discover --ansi"
