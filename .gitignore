@@ -3,7 +3,6 @@
 /public/storage
 /storage/*.key
 /storage/laracatch
-/vendor
 .env
 .env.backup
 .env.testing
@@ -13,6 +12,3 @@ Homestead.yaml
 npm-debug.log
 yarn-error.log
 .idea
-public/vendor/
-resources/lang/vendor/
-resources/views/vendor/
