@@ -14,6 +14,7 @@ use Doctrine\DBAL\Types\BinaryType;
 use Doctrine\DBAL\Types\BlobType;
 use Doctrine\DBAL\Types\IntegerType;
 use Doctrine\DBAL\Types\Type;
+use Doctrine\Deprecations\Deprecation;
 use UnexpectedValueException;
 
 use function array_diff;
@@ -227,9 +228,18 @@ class PostgreSQL94Platform extends AbstractPlatform
 
     /**
      * {@inheritDoc}
+     *
+     * @deprecated Use {@link PostgreSQLSchemaManager::listSchemaNames()} instead.
      */
     public function getListNamespacesSQL()
     {
+        Deprecation::triggerIfCalledFromOutside(
+            'doctrine/dbal',
+            'https://github.com/doctrine/dbal/issues/4503',
+            'PostgreSQL94Platform::getListNamespacesSQL() is deprecated,'
+                . ' use PostgreSQLSchemaManager::listSchemaNames() instead.'
+        );
+
         return "SELECT schema_name AS nspname
                 FROM   information_schema.schemata
                 WHERE  schema_name NOT LIKE 'pg\_%'
@@ -864,12 +874,15 @@ SQL
 
         return $this->doConvertBooleans(
             $item,
-            static function ($boolean) {
-                if ($boolean === null) {
+            /**
+             * @param mixed $value
+             */
+            static function ($value) {
+                if ($value === null) {
                     return 'NULL';
                 }
 
-                return $boolean === true ? 'true' : 'false';
+                return $value === true ? 'true' : 'false';
             }
         );
     }
@@ -885,8 +898,11 @@ SQL
 
         return $this->doConvertBooleans(
             $item,
-            static function ($boolean): ?int {
-                return $boolean === null ? null : (int) $boolean;
+            /**
+             * @param mixed $value
+             */
+            static function ($value): ?int {
+                return $value === null ? null : (int) $value;
             }
         );
     }
@@ -1168,9 +1184,18 @@ SQL
 
     /**
      * {@inheritDoc}
+     *
+     * @deprecated Implement {@link createReservedKeywordsList()} instead.
      */
     protected function getReservedKeywordsClass()
     {
+        Deprecation::triggerIfCalledFromOutside(
+            'doctrine/dbal',
+            'https://github.com/doctrine/dbal/issues/4510',
+            'PostgreSQL94Platform::getReservedKeywordsClass() is deprecated,'
+                . ' use PostgreSQL94Platform::createReservedKeywordsList() instead.'
+        );
+
         return Keywords\PostgreSQL94Keywords::class;
     }
 

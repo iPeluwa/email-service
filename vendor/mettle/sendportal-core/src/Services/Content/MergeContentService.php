@@ -93,7 +93,7 @@ class MergeContentService
 
     protected function mergeContent(?string $customContent, string $templateContent): string
     {
-        return str_ireplace(['{{content}}', '{{ content }}'], $customContent, $templateContent);
+        return str_ireplace(['{{content}}', '{{ content }}'], $customContent ?: '', $templateContent);
     }
 
     protected function mergeTags(string $content, Message $message): string
@@ -128,8 +128,8 @@ class MergeContentService
     {
         $tags = [
             'email' => $message->recipient_email,
-            'first_name' => $message->subscriber ? $message->subscriber->first_name : '',
-            'last_name' => $message->subscriber ? $message->subscriber->last_name : '',
+            'first_name' => optional($message->subscriber)->first_name ?? '',
+            'last_name' => optional($message->subscriber)->last_name ?? ''
         ];
 
         foreach ($tags as $key => $replace) {

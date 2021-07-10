@@ -11,6 +11,7 @@ use Doctrine\DBAL\Schema\TableDiff;
 use Doctrine\DBAL\TransactionIsolationLevel;
 use Doctrine\DBAL\Types\BlobType;
 use Doctrine\DBAL\Types\TextType;
+use Doctrine\Deprecations\Deprecation;
 use InvalidArgumentException;
 
 use function array_diff_key;
@@ -1105,9 +1106,18 @@ SQL
 
     /**
      * {@inheritDoc}
+     *
+     * @deprecated Implement {@link createReservedKeywordsList()} instead.
      */
     protected function getReservedKeywordsClass()
     {
+        Deprecation::triggerIfCalledFromOutside(
+            'doctrine/dbal',
+            'https://github.com/doctrine/dbal/issues/4510',
+            'MySQLPlatform::getReservedKeywordsClass() is deprecated,'
+                . ' use MySQLPlatform::createReservedKeywordsList() instead.'
+        );
+
         return Keywords\MySQLKeywords::class;
     }
 
