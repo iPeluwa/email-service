@@ -14,7 +14,7 @@
         "livewire/livewire": "^2.3",
         "laravel/ui": "^3.0",
         "mettle/sendportal-core": "^2.0",
-        "ext-redis": "^6.2.4"
+        "ext-redis": "^5.3.4"
     },
     "require-dev": {
         "roave/security-advisories": "dev-master",
