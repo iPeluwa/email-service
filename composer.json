@@ -1,10 +1,10 @@
 {
     "name": "mettle/sendportal",
     "type": "project",
-    "description": "Man of Mystery",
+    "description": "SendPortal. Open-source self-hosted email marketing. Manage your own newsletters at a fraction of the cost.",
     "license": "MIT",
     "require": {
-        "php": "^7.3|^8.0",
+        "php": "^7.3",
         "fideloper/proxy": "^4.4",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
@@ -13,8 +13,7 @@
         "laravel/tinker": "^2.5",
         "livewire/livewire": "^2.3",
         "laravel/ui": "^3.0",
-        "mettle/sendportal-core": "^2.0",
-        "ext-redis": "^5.3.4"
+        "mettle/sendportal-core": "^2.0"
     },
     "require-dev": {
         "roave/security-advisories": "dev-master",
@@ -49,7 +48,6 @@
     "minimum-stability": "dev",
     "prefer-stable": true,
     "scripts": {
-        "postinstall": "npm run production",
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
             "@php artisan package:discover --ansi"
