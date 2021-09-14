@@ -51,7 +51,7 @@ class SubscribersController extends Controller
         $subscriber = $this->apiService->storeOrUpdate($workspaceId, collect($request->validated()));
 
         $subscriber->load('tags');
-        return (new ubscriberResource($subscriber))
+        return (new SubscriberResource($subscriber))
                ->response("Subscribed Successfully")
                ->setStatusCode(200);
     }
