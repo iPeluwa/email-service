@@ -23,7 +23,8 @@ class Subscriber extends JsonResource
             'tags' => TagResource::collection($this->whenLoaded('tags')),
             'unsubscribed_at' => $this->unsubscribed_at ? $this->unsubscribed_at->toDateTimeString() : null,
             'created_at' => $this->created_at->toDateTimeString(),
-            'updated_at' => $this->updated_at->toDateTimeString()
+            'updated_at' => $this->updated_at->toDateTimeString(),
+            'message' => 'Ta-da!!, Subscribed 🥰.'
         ];
     }
 }
