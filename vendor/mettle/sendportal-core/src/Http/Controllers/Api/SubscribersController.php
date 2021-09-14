@@ -54,7 +54,6 @@ class SubscribersController extends Controller
         return (new SubscriberResource($subscriber))
                ->response()->json([
             'message' => 'Ta-da!!, Your account has been created successfully 🥰. Verification email has been sent!',
-            'user' => $user
         ], 201);
               
     }
