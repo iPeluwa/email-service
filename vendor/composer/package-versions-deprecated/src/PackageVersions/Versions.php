@@ -142,6 +142,7 @@ final class Versions
   'facade/ignition' => '2.13.1@e3f49bef7b4165fa4b8a9dc579e7b63fa06aef78',
   'facade/ignition-contracts' => '1.0.2@3c921a1cdba35b68a7f0ccffc6dffc1995b18267',
   'filp/whoops' => '2.14.1@15ead64e9828f0fc90932114429c4f7923570cb1',
+  'fzaninotto/faker' => 'dev-master@5ffe7db6c80f441f150fc88008d64e64af66634b',
   'myclabs/deep-copy' => '1.10.2@776f831124e9c62e1a2c601ecc52e776d8bb7220',
   'nunomaduro/collision' => 'v5.9.0@63456f5c3e8c4bc52bd573e5c85674d64d84fd43',
   'phar-io/manifest' => '2.0.3@97803eca37d319dfa7826cc2437fc020857acb53',
@@ -174,7 +175,7 @@ final class Versions
   'sebastian/type' => '2.3.4@b8cd8a1c753c90bc1a0f5372170e3e489136f914',
   'sebastian/version' => '3.0.2@c6c1022351a901512170118436c764e473f6de8c',
   'theseer/tokenizer' => '1.2.1@34a41e998c2183e22995f158c581e7b5e755ab9e',
-  'mettle/sendportal' => 'dev-main@06d1620f341914602d2dd68df86ebde3bf179cdc',
+  'mettle/sendportal' => 'dev-main@6fe6586d700ea5ea6aa1d85334596facf8677d90',
 );
 
     private function __construct()

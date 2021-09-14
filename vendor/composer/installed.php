@@ -5,7 +5,7 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => '06d1620f341914602d2dd68df86ebde3bf179cdc',
+        'reference' => '6fe6586d700ea5ea6aa1d85334596facf8677d90',
         'name' => 'mettle/sendportal',
         'dev' => true,
     ),
@@ -237,6 +237,17 @@
             'aliases' => array(),
             'reference' => 'a8ccedc7ca95189ead0e407c43b530dc17791d6a',
             'dev_requirement' => false,
+        ),
+        'fzaninotto/faker' => array(
+            'pretty_version' => 'dev-master',
+            'version' => 'dev-master',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../fzaninotto/faker',
+            'aliases' => array(
+                0 => '1.9.x-dev',
+            ),
+            'reference' => '5ffe7db6c80f441f150fc88008d64e64af66634b',
+            'dev_requirement' => true,
         ),
         'graham-campbell/result-type' => array(
             'pretty_version' => 'v1.0.2',
@@ -589,7 +600,7 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => '06d1620f341914602d2dd68df86ebde3bf179cdc',
+            'reference' => '6fe6586d700ea5ea6aa1d85334596facf8677d90',
             'dev_requirement' => false,
         ),
         'mettle/sendportal-core' => array(
