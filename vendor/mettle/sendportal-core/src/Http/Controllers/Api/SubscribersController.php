@@ -7,7 +7,6 @@ namespace Sendportal\Base\Http\Controllers\Api;
 use Exception;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Http\Response;
-use Illuminate\Http\JsonResponse;
 use Sendportal\Base\Facades\Sendportal;
 use Sendportal\Base\Http\Controllers\Controller;
 use Sendportal\Base\Http\Requests\Api\SubscriberStoreRequest;
@@ -53,7 +52,7 @@ class SubscribersController extends Controller
 
         $subscriber->load('tags');
         return (new SubscriberResource($subscriber))
-               ->response()->json([
+               ->response([
             'message' => 'Ta-da!!, Your account has been created successfully 🥰. Verification email has been sent!',
         ], 201);
               
