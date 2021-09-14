@@ -34,14 +34,16 @@ final class Versions
      */
     const VERSIONS          = array (
   'asm89/stack-cors' => 'v2.0.3@9cb795bf30988e8c96dd3c40623c48a877bc6714',
-  'aws/aws-sdk-php' => '3.185.10@667a83e4a18cb75db3ce74162efc97123da96261',
+  'aws/aws-crt-php' => 'v1.0.2@3942776a8c99209908ee0b287746263725685732',
+  'aws/aws-sdk-php' => '3.193.3@eec653425d08850d6becfd1653c9443c8b003991',
   'aws/aws-sdk-php-laravel' => '3.6.0@49bc5d90b1ebfb107d0b650fd49b41b241425a36',
   'box/spout' => 'v2.7.3@3681a3421a868ab9a65da156c554f756541f452b',
-  'brick/math' => '0.9.2@dff976c2f3487d42c1db75a3b180e2b9f0e72ce0',
+  'brick/math' => '0.9.3@ca57d18f028f84f777b2168cd1911b0dee2343ae',
   'clue/stream-filter' => 'v1.5.0@aeb7d8ea49c7963d3b581378955dbf5bc49aa320',
-  'composer/package-versions-deprecated' => '1.11.99.2@c6522afe5540d5fc46675043d3ed5a45a740b27c',
-  'doctrine/cache' => '2.0.3@c9622c6820d3ede1e2315a6a377ea1076e421d88',
-  'doctrine/dbal' => '3.1.1@8e0fde2b90e3f61361013d1e928621beeea07bc0',
+  'composer/package-versions-deprecated' => '1.11.99.4@b174585d1fe49ceed21928a945138948cb394600',
+  'dflydev/dot-access-data' => 'v3.0.1@0992cc19268b259a39e86f296da5f0677841f42c',
+  'doctrine/cache' => '2.1.1@331b4d5dbaeab3827976273e9356b3b453c300ce',
+  'doctrine/dbal' => '3.1.2@3ee2622b57370c786f531678f6641208747f7bfc',
   'doctrine/deprecations' => 'v0.5.3@9504165960a1f83cc1480e2be1dd0a0478561314',
   'doctrine/event-manager' => '1.1.1@41370af6a30faa9dc0368c4a6814d596e81aba7f',
   'doctrine/inflector' => '2.0.3@9cf661f4eb38f7c881cac67c75ea9b00bf97b210',
@@ -50,36 +52,41 @@ final class Versions
   'egulias/email-validator' => '2.1.25@0dbf5d78455d4d6a41d186da50adc1122ec066f4',
   'fideloper/proxy' => '4.4.1@c073b2bd04d1c90e04dc1b787662b558dd65ade0',
   'fruitcake/laravel-cors' => 'v2.0.4@a8ccedc7ca95189ead0e407c43b530dc17791d6a',
-  'graham-campbell/result-type' => 'v1.0.1@7e279d2cd5d7fbb156ce46daada972355cea27bb',
+  'graham-campbell/result-type' => 'v1.0.2@84afea85c6841deeea872f36249a206e878a5de0',
   'guzzlehttp/guzzle' => '7.3.0@7008573787b430c1c1f650e3722d9bba59967628',
   'guzzlehttp/promises' => '1.4.1@8e7d04f1f6450fef59366c399cfad4b9383aa30d',
   'guzzlehttp/psr7' => '1.8.2@dc960a912984efb74d0a90222870c72c87f10c91',
+  'hamcrest/hamcrest-php' => 'v2.0.1@8c3d0a3f6af734494ad8f6fbbee0ba92422859f3',
   'kriswallsmith/buzz' => '1.2.0@e7468d13f33fb6656068372533f2a446602fef09',
-  'laravel/framework' => 'v8.49.2@d9b43ee080b4d51344b2e578aa667f85040471a2',
-  'laravel/horizon' => 'v5.7.9@50dc53b105ec612cf1a87e89fffd21cc0a43003c',
+  'laravel/framework' => 'v8.60.0@44f16a31a1d4ac8a51605550d7796e2273984a48',
+  'laravel/horizon' => 'v5.7.12@98e2a6efac1a79ae08a9cce84bef32f236f6f800',
   'laravel/tinker' => 'v2.6.1@04ad32c1a3328081097a181875733fa51f402083',
   'laravel/ui' => 'v3.3.0@07d725813350c695c779382cbd6dac0ab8665537',
-  'league/commonmark' => '1.6.5@44ffd8d3c4a9133e4bd0548622b09c55af39db5f',
-  'league/flysystem' => '1.1.4@f3ad69181b8afed2c9edf7be5a2918144ff4ea32',
+  'league/commonmark' => '2.0.2@2df87709f44b0dd733df86aef0830dce9b1f0f13',
+  'league/config' => 'v1.1.1@a9d39eeeb6cc49d10a6e6c36f22c4c1f4a767f3e',
+  'league/flysystem' => '1.1.5@18634df356bfd4119fe3d6156bdb990c414c14ea',
   'league/mime-type-detection' => '1.7.0@3b9dff8aaf7323590c1d2e443db701eb1f9aa0d3',
-  'livewire/livewire' => 'v2.5.3@1ca6757c78dbead4db7f52a72dabb8b27efcb3f6',
-  'mailgun/mailgun-php' => '3.5.0@f109b4a2f7914548932a422b9cfc3c3607be1b03',
-  'mailjet/mailjet-apiv3-php' => 'v1.5.1@7b94fa629d46fa5ba3826ed4596674942944520d',
+  'livewire/livewire' => 'v2.5.5@de192292d68276d831e5fd9824c80c3b78a21ddf',
+  'mailgun/mailgun-php' => 'v3.5.1@4ec42cdaf0b77fe9c4fb92c4236dc9e84e1989c5',
+  'mailjet/mailjet-apiv3-php' => 'v1.5.3@77c4c44994c27a738ab46b93e67d76d39a0bf337',
   'mettle/sendportal-core' => 'v2.0.3@881eb058bc08236a7e39b9e54fef68994702165d',
-  'monolog/monolog' => '2.3.0@df991fd88693ab703aa403413d83e15f688dae33',
+  'mockery/mockery' => '1.4.4@e01123a0e847d52d186c5eb4b9bf58b0c6d00346',
+  'monolog/monolog' => '2.3.2@71312564759a7db5b789296369c1a264efc43aad',
   'mtdowling/jmespath.php' => '2.6.1@9b87907a81b87bc76d19a7fb2d61e61486ee9edb',
-  'nesbot/carbon' => '2.50.0@f47f17d17602b2243414a44ad53d9f8b9ada5fdb',
-  'nikic/php-parser' => 'v4.11.0@fe14cf3672a149364fb66dfe11bf6549af899f94',
+  'nesbot/carbon' => '2.53.1@f4655858a784988f880c1b8c7feabbf02dfdf045',
+  'nette/schema' => 'v1.2.1@f5ed39fc96358f922cedfd1e516f0dadf5d2be0d',
+  'nette/utils' => 'v3.2.3@5c36cc1ba9bb6abb8a9e425cf054e0c3fd5b9822',
+  'nikic/php-parser' => 'v4.12.0@6608f01670c3cc5079e18c1dab1104e002579143',
   'nyholm/psr7' => '1.4.1@2212385b47153ea71b1c1b1374f8cb5e4f7892ec',
   'opis/closure' => '3.6.2@06e2ebd25f2869e54a306dda991f7db58066f7f6',
   'php-http/client-common' => '2.4.0@29e0c60d982f04017069483e832b92074d0a90b2',
   'php-http/discovery' => '1.14.0@778f722e29250c1fac0bbdef2c122fa5d038c9eb',
   'php-http/httplug' => '2.2.0@191a0a1b41ed026b717421931f8d3bd2514ffbf9',
-  'php-http/message' => '1.11.1@887734d9c515ad9a564f6581a682fff87a6253cc',
+  'php-http/message' => '1.12.0@39eb7548be982a81085fe5a6e2a44268cd586291',
   'php-http/message-factory' => 'v1.0.2@a478cb11f66a6ac48d8954216cfed9aa06a501a1',
   'php-http/multipart-stream-builder' => '1.2.0@11c1d31f72e01c738bbce9e27649a7cca829c30e',
   'php-http/promise' => '1.1.0@4c4c1f9b7289a2ec57cde7f1e9762a5789506f88',
-  'phpoption/phpoption' => '1.7.5@994ecccd8f3283ecf5ac33254543eb0ac946d525',
+  'phpoption/phpoption' => '1.8.0@5455cb38aed4523f99977c4a12ef19da4bfe2a28',
   'psr/container' => '1.1.1@8622567409010282b7aeebe4bb841fe98b58dcaf',
   'psr/event-dispatcher' => '1.0.0@dbefd12671e8a14ec7f180cab83036ed26714bb0',
   'psr/http-client' => '1.0.1@2dfb5f6c5eff0e91e20e913f8c5452ed95b86621',
@@ -89,69 +96,67 @@ final class Versions
   'psr/simple-cache' => '1.0.1@408d5eafb83c57f6365a3ca330ff23aa4a5fa39b',
   'psy/psysh' => 'v0.10.8@e4573f47750dd6c92dca5aee543fa77513cbd8d3',
   'ralouphie/getallheaders' => '3.0.3@120b605dfeb996808c31b6477290a714d356e822',
-  'ramsey/collection' => '1.1.3@28a5c4ab2f5111db6a60b2b4ec84057e0f43b9c1',
-  'ramsey/uuid' => '4.1.1@cd4032040a750077205918c86049aa0f43d22947',
+  'ramsey/collection' => '1.2.1@eaca1dc1054ddd10cbd83c1461907bee6fb528fa',
+  'ramsey/uuid' => '4.2.1@fe665a03df4f056aa65af552a96e1976df8c8dae',
   'rap2hpoutre/fast-excel' => 'v2.5.0@c8032e9146765e01a025f7f98d38b13f32f63e32',
   'sendgrid/php-http-client' => '3.14.0@7880d5aecc53856802130ba83af1dfcf942e9767',
   'sendgrid/sendgrid' => '7.9.2@ab0023a6233f39e408b5eb8c4299f20790f5f5a7',
   'starkbank/ecdsa' => '0.0.5@484bedac47bac4012dc73df91da221f0a66845cb',
   'swiftmailer/swiftmailer' => 'v6.2.7@15f7faf8508e04471f666633addacf54c0ab5933',
-  'symfony/console' => 'v5.3.2@649730483885ff2ca99ca0560ef0e5f6b03f2ac1',
-  'symfony/css-selector' => 'v5.3.0@fcd0b29a7a0b1bb5bfbedc6231583d77fea04814',
+  'symfony/console' => 'v5.3.7@8b1008344647462ae6ec57559da166c2bfa5e16a',
+  'symfony/css-selector' => 'v5.3.4@7fb120adc7f600a59027775b224c13a33530dd90',
   'symfony/deprecation-contracts' => 'v2.4.0@5f38c8804a9e97d23e0c8d63341088cd8a22d627',
-  'symfony/error-handler' => 'v5.3.3@43323e79c80719e8a4674e33484bca98270d223f',
-  'symfony/event-dispatcher' => 'v5.3.0@67a5f354afa8e2f231081b3fa11a5912f933c3ce',
+  'symfony/error-handler' => 'v5.3.7@3bc60d0fba00ae8d1eaa9eb5ab11a2bbdd1fc321',
+  'symfony/event-dispatcher' => 'v5.3.7@ce7b20d69c66a20939d8952b617506a44d102130',
   'symfony/event-dispatcher-contracts' => 'v2.4.0@69fee1ad2332a7cbab3aca13591953da9cdb7a11',
-  'symfony/finder' => 'v5.3.0@0ae3f047bed4edff6fd35b26a9a6bfdc92c953c6',
+  'symfony/finder' => 'v5.3.7@a10000ada1e600d109a6c7632e9ac42e8bf2fb93',
   'symfony/http-client-contracts' => 'v2.4.0@7e82f6084d7cae521a75ef2cb5c9457bbda785f4',
-  'symfony/http-foundation' => 'v5.3.3@0e45ab1574caa0460d9190871a8ce47539e40ccf',
-  'symfony/http-kernel' => 'v5.3.3@90ad9f4b21ddcb8ebe9faadfcca54929ad23f9f8',
-  'symfony/mime' => 'v5.3.2@47dd7912152b82d0d4c8d9040dbc93d6232d472a',
-  'symfony/options-resolver' => 'v5.3.0@162e886ca035869866d233a2bfef70cc28f9bbe5',
+  'symfony/http-foundation' => 'v5.3.7@e36c8e5502b4f3f0190c675f1c1f1248a64f04e5',
+  'symfony/http-kernel' => 'v5.3.7@a3a78e37935a527b50376c22ac1cec35b57fe787',
+  'symfony/mime' => 'v5.3.7@ae887cb3b044658676129f5e97aeb7e9eb69c2d8',
+  'symfony/options-resolver' => 'v5.3.7@4b78e55b179003a42523a362cc0e8327f7a69b5e',
   'symfony/polyfill-ctype' => 'v1.23.0@46cd95797e9df938fdd2b03693b5fca5e64b01ce',
   'symfony/polyfill-iconv' => 'v1.23.0@63b5bb7db83e5673936d6e3b8b3e022ff6474933',
-  'symfony/polyfill-intl-grapheme' => 'v1.23.0@24b72c6baa32c746a4d0840147c9715e42bb68ab',
+  'symfony/polyfill-intl-grapheme' => 'v1.23.1@16880ba9c5ebe3642d1995ab866db29270b36535',
   'symfony/polyfill-intl-idn' => 'v1.23.0@65bd267525e82759e7d8c4e8ceea44f398838e65',
   'symfony/polyfill-intl-normalizer' => 'v1.23.0@8590a5f561694770bdcd3f9b5c69dde6945028e8',
-  'symfony/polyfill-mbstring' => 'v1.23.0@2df51500adbaebdc4c38dea4c89a2e131c45c8a1',
+  'symfony/polyfill-mbstring' => 'v1.23.1@9174a3d80210dca8daa7f31fec659150bbeabfc6',
   'symfony/polyfill-php72' => 'v1.23.0@9a142215a36a3888e30d0a9eeea9766764e96976',
   'symfony/polyfill-php73' => 'v1.23.0@fba8933c384d6476ab14fb7b8526e5287ca7e010',
-  'symfony/polyfill-php80' => 'v1.23.0@eca0bf41ed421bed1b57c4958bab16aa86b757d0',
-  'symfony/process' => 'v5.3.2@714b47f9196de61a196d86c4bad5f09201b307df',
-  'symfony/routing' => 'v5.3.0@368e81376a8e049c37cb80ae87dbfbf411279199',
+  'symfony/polyfill-php80' => 'v1.23.1@1100343ed1a92e3a38f9ae122fc0eb21602547be',
+  'symfony/polyfill-php81' => 'v1.23.0@e66119f3de95efc359483f810c4c3e6436279436',
+  'symfony/process' => 'v5.3.7@38f26c7d6ed535217ea393e05634cb0b244a1967',
+  'symfony/routing' => 'v5.3.7@be865017746fe869007d94220ad3f5297951811b',
   'symfony/service-contracts' => 'v2.4.0@f040a30e04b57fbcc9c6cbcf4dbaa96bd318b9bb',
-  'symfony/string' => 'v5.3.3@bd53358e3eccec6a670b5f33ab680d8dbe1d4ae1',
-  'symfony/translation' => 'v5.3.3@380b8c9e944d0e364b25f28e8e555241eb49c01c',
+  'symfony/string' => 'v5.3.7@8d224396e28d30f81969f083a58763b8b9ceb0a5',
+  'symfony/translation' => 'v5.3.7@4d595a6d15fd3a2c67f6f31d14d15d3b7356d7a6',
   'symfony/translation-contracts' => 'v2.4.0@95c812666f3e91db75385749fe219c5e494c7f95',
-  'symfony/var-dumper' => 'v5.3.3@46aa709affb9ad3355bd7a810f9662d71025c384',
+  'symfony/var-dumper' => 'v5.3.7@3ad5af4aed07d0a0201bbcfc42658fe6c5b2fb8f',
   'tijsverkoyen/css-to-inline-styles' => '2.2.3@b43b05cf43c1b6d849478965062b6ef73e223bb5',
   'vlucas/phpdotenv' => 'v5.3.0@b3eac5c7ac896e52deab4a99068e3f4ab12d9e56',
   'voku/portable-ascii' => '1.5.6@80953678b19901e5165c56752d087fc11526017c',
   'webmozart/assert' => '1.10.0@6964c76c7804814a842473e0c8fd15bab0f18e25',
   'wildbit/postmark-php' => '4.0.2@823ca5bdb6355e266986434fab9139406b6e6c13',
   'doctrine/instantiator' => '1.4.0@d56bf6102915de5702778fe20f2de3b2fe570b5b',
-  'facade/flare-client-php' => '1.8.1@47b639dc02bcfdfc4ebb83de703856fa01e35f5f',
-  'facade/ignition' => '2.10.2@43688227bbf27c43bc1ad83af224f135b6ef0ff4',
+  'facade/flare-client-php' => '1.9.1@b2adf1512755637d0cef4f7d1b54301325ac78ed',
+  'facade/ignition' => '2.13.1@e3f49bef7b4165fa4b8a9dc579e7b63fa06aef78',
   'facade/ignition-contracts' => '1.0.2@3c921a1cdba35b68a7f0ccffc6dffc1995b18267',
-  'filp/whoops' => '2.13.0@2edbc73a4687d9085c8f20f398eebade844e8424',
-  'fzaninotto/faker' => 'v1.9.2@848d8125239d7dbf8ab25cb7f054f1a630e68c2e',
-  'hamcrest/hamcrest-php' => 'v2.0.1@8c3d0a3f6af734494ad8f6fbbee0ba92422859f3',
-  'mockery/mockery' => '1.4.3@d1339f64479af1bee0e82a0413813fe5345a54ea',
+  'filp/whoops' => '2.14.1@15ead64e9828f0fc90932114429c4f7923570cb1',
   'myclabs/deep-copy' => '1.10.2@776f831124e9c62e1a2c601ecc52e776d8bb7220',
-  'nunomaduro/collision' => 'v5.5.0@b5cb36122f1c142c3c3ee20a0ae778439ef0244b',
-  'phar-io/manifest' => '2.0.1@85265efd3af7ba3ca4b2a2c34dbfc5788dd29133',
+  'nunomaduro/collision' => 'v5.9.0@63456f5c3e8c4bc52bd573e5c85674d64d84fd43',
+  'phar-io/manifest' => '2.0.3@97803eca37d319dfa7826cc2437fc020857acb53',
   'phar-io/version' => '3.1.0@bae7c545bef187884426f042434e561ab1ddb182',
   'phpdocumentor/reflection-common' => '2.2.0@1d01c49d4ed62f25aa84a747ad35d5a16924662b',
   'phpdocumentor/reflection-docblock' => '5.2.2@069a785b2141f5bcf49f3e353548dc1cce6df556',
   'phpdocumentor/type-resolver' => '1.4.0@6a467b8989322d92aa1c8bf2bebcc6e5c2ba55c0',
-  'phpspec/prophecy' => '1.13.0@be1996ed8adc35c3fd795488a653f4b518be70ea',
+  'phpspec/prophecy' => '1.14.0@d86dfc2e2a3cd366cee475e52c6bb3bbc371aa0e',
   'phpunit/php-code-coverage' => '9.2.6@f6293e1b30a2354e8428e004689671b83871edde',
   'phpunit/php-file-iterator' => '3.0.5@aa4be8575f26070b100fccb67faabb28f21f66f8',
   'phpunit/php-invoker' => '3.1.1@5a10147d0aaf65b58940a0b72f71c9ac0423cc67',
   'phpunit/php-text-template' => '2.0.4@5da5f67fc95621df9ff4c4e5a84d6a8a2acf7c28',
   'phpunit/php-timer' => '5.0.3@5a63ce20ed1b5bf577850e2c4e87f4aa902afbd2',
-  'phpunit/phpunit' => '9.5.6@fb9b8333f14e3dce976a60ef6a7e05c7c7ed8bfb',
-  'roave/security-advisories' => 'dev-master@1a08d0c7ab47e57fad0d254951a615f07445e91f',
+  'phpunit/phpunit' => '9.5.9@ea8c2dfb1065eb35a79b3681eee6e6fb0a6f273b',
+  'roave/security-advisories' => 'dev-master@8cebf1673eccd7e6552732142039c147c1023214',
   'sebastian/cli-parser' => '1.0.1@442e7c7e687e42adc03470c7b668bc4b2402c0b2',
   'sebastian/code-unit' => '1.0.8@1fc9f64c0927627ef78ba436c9b17d967e68e120',
   'sebastian/code-unit-reverse-lookup' => '2.0.3@ac91f01ccec49fb77bdc6fd1e548bc70f7faa3e5',
@@ -168,8 +173,8 @@ final class Versions
   'sebastian/resource-operations' => '3.0.3@0f4443cb3a1d92ce809899753bc0d5d5a8dd19a8',
   'sebastian/type' => '2.3.4@b8cd8a1c753c90bc1a0f5372170e3e489136f914',
   'sebastian/version' => '3.0.2@c6c1022351a901512170118436c764e473f6de8c',
-  'theseer/tokenizer' => '1.2.0@75a63c33a8577608444246075ea0af0d052e452a',
-  'mettle/sendportal' => 'dev-main@09938a0cb9e59517eb6536dd5e4630bb4ed25d92',
+  'theseer/tokenizer' => '1.2.1@34a41e998c2183e22995f158c581e7b5e755ab9e',
+  'mettle/sendportal' => 'dev-main@bc8426a5aa288fddc6ee011ab3018b8f7e630326',
 );
 
     private function __construct()
@@ -184,7 +189,7 @@ final class Versions
      */
     public static function rootPackageName() : string
     {
-        if (!class_exists(InstalledVersions::class, false) || !(method_exists(InstalledVersions::class, 'getAllRawData') ? InstalledVersions::getAllRawData() : InstalledVersions::getRawData())) {
+        if (!self::composer2ApiUsable()) {
             return self::ROOT_PACKAGE_NAME;
         }
 
@@ -202,7 +207,7 @@ final class Versions
      */
     public static function getVersion(string $packageName): string
     {
-        if (class_exists(InstalledVersions::class, false) && (method_exists(InstalledVersions::class, 'getAllRawData') ? InstalledVersions::getAllRawData() : InstalledVersions::getRawData())) {
+        if (self::composer2ApiUsable()) {
             return InstalledVersions::getPrettyVersion($packageName)
                 . '@' . InstalledVersions::getReference($packageName);
         }
@@ -214,5 +219,26 @@ final class Versions
         throw new OutOfBoundsException(
             'Required package "' . $packageName . '" is not installed: check your ./vendor/composer/installed.json and/or ./composer.lock files'
         );
+    }
+
+    private static function composer2ApiUsable(): bool
+    {
+        if (!class_exists(InstalledVersions::class, false)) {
+            return false;
+        }
+
+        if (method_exists(InstalledVersions::class, 'getAllRawData')) {
+            $rawData = InstalledVersions::getAllRawData();
+            if (count($rawData) === 1 && count($rawData[0]) === 0) {
+                return false;
+            }
+        } else {
+            $rawData = InstalledVersions::getRawData();
+            if ($rawData === null || $rawData === []) {
+                return false;
+            }
+        }
+
+        return true;
     }
 }

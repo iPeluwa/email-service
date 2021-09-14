@@ -507,8 +507,10 @@ class OraclePlatform extends AbstractPlatform
         $sql[] = "DECLARE
   constraints_Count NUMBER;
 BEGIN
-  SELECT COUNT(CONSTRAINT_NAME) INTO constraints_Count FROM USER_CONSTRAINTS WHERE TABLE_NAME = '" . $unquotedTableName
-            . "' AND CONSTRAINT_TYPE = 'P';
+  SELECT COUNT(CONSTRAINT_NAME) INTO constraints_Count
+    FROM USER_CONSTRAINTS
+   WHERE TABLE_NAME = '" . $unquotedTableName . "'
+     AND CONSTRAINT_TYPE = 'P';
   IF constraints_Count = 0 OR constraints_Count = '' THEN
     EXECUTE IMMEDIATE '" . $this->getCreateConstraintSQL($idx, $quotedTableName) . "';
   END IF;
@@ -529,7 +531,6 @@ DECLARE
    last_Sequence NUMBER;
    last_InsertID NUMBER;
 BEGIN
-   SELECT ' . $sequenceName . '.NEXTVAL INTO :NEW.' . $quotedName . ' FROM DUAL;
    IF (:NEW.' . $quotedName . ' IS NULL OR :NEW.' . $quotedName . ' = 0) THEN
       SELECT ' . $sequenceName . '.NEXTVAL INTO :NEW.' . $quotedName . ' FROM DUAL;
    ELSE
@@ -540,6 +541,7 @@ BEGIN
       WHILE (last_InsertID > last_Sequence) LOOP
          SELECT ' . $sequenceName . '.NEXTVAL INTO last_Sequence FROM DUAL;
       END LOOP;
+      SELECT ' . $sequenceName . '.NEXTVAL INTO last_Sequence FROM DUAL;
    END IF;
 END;';
 
@@ -784,9 +786,9 @@ SQL
     /**
      * {@inheritDoc}
      */
-    public function getDropDatabaseSQL($database)
+    public function getDropDatabaseSQL($name)
     {
-        return 'DROP USER ' . $database . ' CASCADE';
+        return 'DROP USER ' . $name . ' CASCADE';
     }
 
     /**
