@@ -47,7 +47,7 @@ class SyslogHandler extends AbstractSyslogHandler
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function close(): void
     {
@@ -55,7 +55,7 @@ class SyslogHandler extends AbstractSyslogHandler
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     protected function write(array $record): void
     {

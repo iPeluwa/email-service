@@ -50,7 +50,7 @@ class FlowdockHandler extends SocketHandler
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function setFormatter(FormatterInterface $formatter): HandlerInterface
     {
@@ -70,7 +70,7 @@ class FlowdockHandler extends SocketHandler
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     protected function write(array $record): void
     {
@@ -80,7 +80,7 @@ class FlowdockHandler extends SocketHandler
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     protected function generateDataStream(array $record): string
     {

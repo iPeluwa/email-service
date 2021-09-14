@@ -67,7 +67,7 @@ class LineFormatter extends NormalizerFormatter
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function format(array $record): string
     {
@@ -111,8 +111,7 @@ class LineFormatter extends NormalizerFormatter
         if (false !== strpos($output, '%')) {
             $output = preg_replace('/%(?:extra|context)\..+?%/', '', $output);
             if (null === $output) {
-                $pcreErrorCode = preg_last_error();
-                throw new \RuntimeException('Failed to run preg_replace: ' . $pcreErrorCode . ' / ' . Utils::pcreLastErrorMessage($pcreErrorCode));
+                throw new \RuntimeException('Failed to run preg_replace: ' . preg_last_error() . ' / ' . preg_last_error_msg());
             }
         }
 

@@ -57,14 +57,12 @@ class PendingBatch
     /**
      * Add jobs to the batch.
      *
-     * @param  iterable  $jobs
+     * @param  array  $jobs
      * @return $this
      */
     public function add($jobs)
     {
-        foreach ($jobs as $job) {
-            $this->jobs->push($job);
-        }
+        $this->jobs->push($jobs);
 
         return $this;
     }

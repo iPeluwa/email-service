@@ -28,3 +28,4 @@ If you would like to add SendPortal to an existing application, please follow th
 ## Upgrading
 
 If you already have a copy of SendPortal v1 installed, please follow the [upgrade guide](https://sendportal.io/docs/v2/getting-started/upgrade-guide).
+# email-service

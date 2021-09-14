@@ -91,7 +91,7 @@ class SlackHandler extends SocketHandler
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     protected function generateDataStream(array $record): string
     {
@@ -143,7 +143,7 @@ class SlackHandler extends SocketHandler
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     protected function write(array $record): void
     {

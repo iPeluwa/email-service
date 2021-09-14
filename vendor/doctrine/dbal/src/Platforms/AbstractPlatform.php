@@ -1352,13 +1352,13 @@ abstract class AbstractPlatform
     /**
      * Returns the SQL snippet to drop an existing database.
      *
-     * @param string $name The name of the database that should be dropped.
+     * @param string $database The name of the database that should be dropped.
      *
      * @return string
      */
-    public function getDropDatabaseSQL($name)
+    public function getDropDatabaseSQL($database)
     {
-        return 'DROP DATABASE ' . $name;
+        return 'DROP DATABASE ' . $database;
     }
 
     /**
@@ -2929,13 +2929,13 @@ abstract class AbstractPlatform
     /**
      * Returns the SQL to create a new database.
      *
-     * @param string $name The name of the database that should be created.
+     * @param string $database The name of the database that should be created.
      *
      * @return string
      *
      * @throws Exception If not supported on this platform.
      */
-    public function getCreateDatabaseSQL($name)
+    public function getCreateDatabaseSQL($database)
     {
         throw Exception::notSupported(__METHOD__);
     }

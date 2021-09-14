@@ -22,18 +22,11 @@ class FullHttpMessageFormatter implements Formatter
     private $maxBodyLength;
 
     /**
-     * @var string
-     */
-    private $binaryDetectionRegex;
-
-    /**
      * @param int|null $maxBodyLength
-     * @param string   $binaryDetectionRegex By default, this is all non-printable ASCII characters and <DEL> except for \t, \r, \n
      */
-    public function __construct($maxBodyLength = 1000, string $binaryDetectionRegex = '/([\x00-\x09\x0C\x0E-\x1F\x7F])/')
+    public function __construct($maxBodyLength = 1000)
     {
         $this->maxBodyLength = $maxBodyLength;
-        $this->binaryDetectionRegex = $binaryDetectionRegex;
     }
 
     /**
@@ -93,7 +86,8 @@ class FullHttpMessageFormatter implements Formatter
         $data = $stream->__toString();
         $stream->rewind();
 
-        if (preg_match($this->binaryDetectionRegex, $data)) {
+        // all non-printable ASCII characters and <DEL> except for \t, \r, \n
+        if (preg_match('/([\x00-\x09\x0C\x0E-\x1F\x7F])/', $data)) {
             return $message.'[binary stream omitted]';
         }
 

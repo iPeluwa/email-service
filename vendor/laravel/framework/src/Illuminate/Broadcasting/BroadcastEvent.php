@@ -3,7 +3,7 @@
 namespace Illuminate\Broadcasting;
 
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Broadcasting\Factory as BroadcastingFactory;
+use Illuminate\Contracts\Broadcasting\Broadcaster;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\Arr;
@@ -52,10 +52,10 @@ class BroadcastEvent implements ShouldQueue
     /**
      * Handle the queued job.
      *
-     * @param  \Illuminate\Contracts\Broadcasting\Factory  $manager
+     * @param  \Illuminate\Contracts\Broadcasting\Broadcaster  $broadcaster
      * @return void
      */
-    public function handle(BroadcastingFactory $manager)
+    public function handle(Broadcaster $broadcaster)
     {
         $name = method_exists($this->event, 'broadcastAs')
                 ? $this->event->broadcastAs() : get_class($this->event);
@@ -66,17 +66,10 @@ class BroadcastEvent implements ShouldQueue
             return;
         }
 
-        $connections = method_exists($this->event, 'broadcastConnections')
-                            ? $this->event->broadcastConnections()
-                            : [null];
-
-        $payload = $this->getPayloadFromEvent($this->event);
-
-        foreach ($connections as $connection) {
-            $manager->connection($connection)->broadcast(
-                $channels, $name, $payload
-            );
-        }
+        $broadcaster->broadcast(
+            $channels, $name,
+            $this->getPayloadFromEvent($this->event)
+        );
     }
 
     /**
@@ -87,9 +80,10 @@ class BroadcastEvent implements ShouldQueue
      */
     protected function getPayloadFromEvent($event)
     {
-        if (method_exists($event, 'broadcastWith') &&
-            ! is_null($payload = $event->broadcastWith())) {
-            return array_merge($payload, ['socket' => data_get($event, 'socket')]);
+        if (method_exists($event, 'broadcastWith')) {
+            return array_merge(
+                $event->broadcastWith(), ['socket' => data_get($event, 'socket')]
+            );
         }
 
         $payload = [];

@@ -6,7 +6,6 @@ use Illuminate\Contracts\Http\Kernel as HttpKernel;
 use Illuminate\Cookie\CookieValuePrefix;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
-use Illuminate\Testing\LoggedExceptionCollection;
 use Illuminate\Testing\TestResponse;
 use Symfony\Component\HttpFoundation\File\UploadedFile as SymfonyUploadedFile;
 use Symfony\Component\HttpFoundation\Request as SymfonyRequest;
@@ -642,12 +641,6 @@ trait MakesHttpRequests
      */
     protected function createTestResponse($response)
     {
-        return tap(TestResponse::fromBaseResponse($response), function ($response) {
-            $response->withExceptions(
-                $this->app->bound(LoggedExceptionCollection::class)
-                    ? $this->app->make(LoggedExceptionCollection::class)
-                    : new LoggedExceptionCollection
-            );
-        });
+        return TestResponse::fromBaseResponse($response);
     }
 }

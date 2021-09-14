@@ -75,7 +75,7 @@ class ChromePHPHandler extends AbstractProcessingHandler
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function handleBatch(array $records): void
     {

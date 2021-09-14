@@ -332,13 +332,11 @@ class Handler implements ExceptionHandlerContract
         $e = $this->prepareException($this->mapException($e));
 
         foreach ($this->renderCallbacks as $renderCallback) {
-            foreach ($this->firstClosureParameterTypes($renderCallback) as $type) {
-                if (is_a($e, $type)) {
-                    $response = $renderCallback($e, $request);
+            if (is_a($e, $this->firstClosureParameterType($renderCallback))) {
+                $response = $renderCallback($e, $request);
 
-                    if (! is_null($response)) {
-                        return $response;
-                    }
+                if (! is_null($response)) {
+                    return $response;
                 }
             }
         }

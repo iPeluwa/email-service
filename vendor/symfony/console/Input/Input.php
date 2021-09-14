@@ -128,7 +128,7 @@ abstract class Input implements InputInterface, StreamableInputInterface
     /**
      * {@inheritdoc}
      */
-    public function hasArgument(string $name)
+    public function hasArgument($name)
     {
         return $this->definition->hasArgument($name);
     }

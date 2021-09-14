@@ -33,7 +33,7 @@ class ScheduleTestCommand extends Command
         $commandNames = [];
 
         foreach ($commands as $command) {
-            $commandNames[] = $command->command ?? $command->getSummaryForDisplay();
+            $commandNames[] = $command->command;
         }
 
         $index = array_search($this->choice('Which command would you like to run?', $commandNames), $commandNames);

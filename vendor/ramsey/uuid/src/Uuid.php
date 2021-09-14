@@ -24,7 +24,6 @@ use Ramsey\Uuid\Rfc4122\FieldsInterface as Rfc4122FieldsInterface;
 use Ramsey\Uuid\Type\Hexadecimal;
 use Ramsey\Uuid\Type\Integer as IntegerObject;
 
-use function assert;
 use function bin2hex;
 use function preg_match;
 use function str_replace;
@@ -239,9 +238,9 @@ class Uuid implements UuidInterface
      * ```
      * use Ramsey\Uuid\Uuid;
      *
-     * $timeBasedUuid = Uuid::uuid1();
-     * $namespaceMd5Uuid = Uuid::uuid3(Uuid::NAMESPACE_URL, 'http://php.net/');
-     * $randomUuid = Uuid::uuid4();
+     * $timeBasedUuid     = Uuid::uuid1();
+     * $namespaceMd5Uuid  = Uuid::uuid3(Uuid::NAMESPACE_URL, 'http://php.net/');
+     * $randomUuid        = Uuid::uuid4();
      * $namespaceSha1Uuid = Uuid::uuid5(Uuid::NAMESPACE_URL, 'http://php.net/');
      * ```
      *
@@ -286,7 +285,7 @@ class Uuid implements UuidInterface
      */
     public function serialize(): string
     {
-        return $this->getFields()->getBytes();
+        return $this->getBytes();
     }
 
     /**
@@ -453,8 +452,6 @@ class Uuid implements UuidInterface
     public static function fromString(string $uuid): UuidInterface
     {
         if (! self::$factoryReplaced && preg_match(LazyUuidFromString::VALID_REGEX, $uuid) === 1) {
-            assert($uuid !== '');
-
             return new LazyUuidFromString(strtolower($uuid));
         }
 

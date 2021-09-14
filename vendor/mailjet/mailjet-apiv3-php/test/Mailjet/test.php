@@ -1,94 +1,86 @@
 <?php
 
-declare(strict_types=1);
-
-/*
- * Copyright (C) 2013 Mailgun
- *
- * This software may be modified and distributed under the terms
- * of the MIT license. See the LICENSE file for details.
- */
-
 namespace Mailjet;
 
 use PHPUnit\Framework\TestCase;
 
-/**
- * @internal
- * @coversNothing
- */
-final class test extends TestCase
+class MailjetTest extends TestCase
 {
+    private function assertUrl($url, $response, $version = 'v3')
+    {
+        $this->assertEquals('https://api.mailjet.com/'.$version.$url, $response->request->getUrl());
+    }
+
     public function assertPayload($payload, $response)
     {
-        static::assertSame($payload, $response->request->getBody());
+        $this->assertEquals($payload, $response->request->getBody());
     }
 
     public function assertFilters($shouldBe, $response)
     {
-        static::assertSame($shouldBe, $response->request->getFilters());
+        $this->assertEquals($shouldBe, $response->request->getFilters());
     }
 
     public function assertHttpMethod($payload, $response)
     {
-        static::assertSame($payload, $response->request->getMethod());
+        $this->assertEquals($payload, $response->request->getMethod());
     }
 
     public function assertGetAuth($payload, $response)
     {
-        static::assertSame($payload, $response->request->getAuth()[0]);
-        static::assertSame($payload, $response->request->getAuth()[1]);
+        $this->assertEquals($payload, $response->request->getAuth()[0]);
+        $this->assertEquals($payload, $response->request->getAuth()[1]);
     }
 
     public function assertGetStatus($payload, $response)
     {
-        static::assertSame($payload, $response->getStatus());
+        $this->assertEquals($payload, $response->getStatus());
     }
 
     public function assertGetBody($payload, $keyName, $response)
     {
-        static::assertSame($payload, $response->getBody()[$keyName]);
+        $this->assertEquals($payload, $response->getBody()[$keyName]);
     }
 
     public function assertGetData($payload, $keyName, $response)
     {
-        static::assertSame($payload, $response->getData()[$keyName]);
+        $this->assertEquals($payload, $response->getData()[$keyName]);
     }
-
+    
     public function assertGetCount($payload, $response)
     {
-        static::assertSame($payload, $response->getCount());
+        $this->assertEquals($payload, $response->getCount());
     }
-
+    
     public function assertGetReasonPhrase($payload, $response)
     {
-        static::assertSame($payload, $response->getReasonPhrase());
+        $this->assertEquals($payload, $response->getReasonPhrase());
     }
 
     public function assertGetTotal($payload, $response)
     {
-        static::assertSame($payload, $response->getTotal());
+        $this->assertEquals($payload, $response->getTotal());
     }
 
     public function assertSuccess($payload, $response)
     {
-        static::assertSame($payload, $response->success());
+        $this->assertEquals($payload, $response->success());
     }
 
     public function assertSetSecureProtocol($client)
     {
-        static::assertTrue($client->setSecureProtocol(true));
-        static::assertFalse($client->setSecureProtocol('not boolean type'));
+        $this->assertTrue($client->setSecureProtocol(true));
+        $this->assertFalse($client->setSecureProtocol('not boolean type'));
     }
 
     public function testGet()
     {
-        $client = new Client('', '', false);
+        $client = new Client('', '', ['call' => false]);
 
         $this->assertUrl('/REST/contact', $client->get(Resources::$Contact));
 
         $this->assertFilters(['id' => 2], $client->get(Resources::$Contact, [
-            'filters' => ['id' => 2],
+            'filters' => ['id' => 2]
         ], ['version' => 'v3.1']));
 
         $response = $client->get(Resources::$ContactGetcontactslists, ['id' => 2]);
@@ -96,7 +88,7 @@ final class test extends TestCase
 
         // error on sort !
         $response = $client->get(Resources::$Contact, [
-            'filters' => ['sort' => 'email+DESC'],
+            'filters' => ['sort' => 'email+DESC']
         ]);
         $this->assertUrl('/REST/contact', $response);
 
@@ -114,15 +106,15 @@ final class test extends TestCase
         $this->assertGetStatus(401, $response);
 
         $this->assertGetBody('', '', $response);
-
+        
         $this->assertGetData('', '', $response);
-
+        
         $this->assertGetCount('', $response);
-
+        
         $this->assertGetReasonPhrase('Unauthorized', $response);
-
+        
         $this->assertGetTotal('', $response);
-
+        
         $this->assertSuccess('', $response);
 
         $this->assertSetSecureProtocol($client);
@@ -130,16 +122,16 @@ final class test extends TestCase
 
     public function testPost()
     {
-        $client = new Client('', '', false);
+        $client = new Client('', '', ['call' => false]);
 
         $email = [
-            'FromName' => 'Mailjet PHP test',
-            'FromEmail' => 'gbadi@student.42.fr',
-            'Text-Part' => 'Simple Email test',
-            'Subject' => 'PHPunit',
-            'Html-Part' => '<h3>Simple Email Test</h3>',
-            'Recipients' => [['Email' => 'test@mailjet.com']],
-            'MJ-custom-ID' => 'Hello ID',
+          'FromName'     => 'Mailjet PHP test',
+          'FromEmail'    => 'gbadi@student.42.fr',
+          'Text-Part'    => 'Simple Email test',
+          'Subject'      => 'PHPunit',
+          'Html-Part'    => '<h3>Simple Email Test</h3>',
+          'Recipients'   => [['Email' => 'test@mailjet.com']],
+          'MJ-custom-ID' => 'Hello ID',
         ];
 
         $ret = $client->post(Resources::$Email, ['body' => $email]);
@@ -156,16 +148,16 @@ final class test extends TestCase
         $this->assertSuccess('', $ret);
     }
 
-    public function testPostV31()
+    public function testPostV3_1()
     {
-        $client = new Client('', '', false);
+        $client = new Client('', '', ['call' => false]);
 
         $email = [
             'Messages' => [[
-                'From' => ['Email' => 'test@mailjet.com', 'Name' => 'Mailjet PHP test'],
-                'TextPart' => 'Simple Email test',
-                'To' => [['Email' => 'test@mailjet.com', 'Name' => 'Test']],
-            ]],
+                'From' => ['Email' => "test@mailjet.com", 'Name' => "Mailjet PHP test"],
+                'TextPart' => "Simple Email test",
+                'To' => [['Email' => "test@mailjet.com", 'Name' => 'Test']]
+            ]]
         ];
 
         $ret = $client->post(Resources::$Email, ['body' => $email], ['version' => 'v3.1']);
@@ -181,20 +173,16 @@ final class test extends TestCase
         $this->assertGetTotal('', $ret);
         $this->assertSuccess('', $ret);
     }
-
+	
     public function testClientHasOptions()
     {
-        $client = new Client('', '', false);
-        $client->setTimeout(3);
-        $client->setConnectionTimeout(5);
-        $client->addRequestOption('delay', 23);
-        static::assertSame(3, $client->getTimeout());
-        static::assertSame(5, $client->getConnectionTimeout());
-        static::assertSame(23, $client->getRequestOptions()['delay']);
+         $client = new Client('', '', ['call' => false]);
+         $client->setTimeout(3);
+         $client->setConnectionTimeout(5);
+         $client->addRequestOption('delay', 23);
+         $this->assertEquals(3, $client->getTimeout());
+         $this->assertEquals(5, $client->getConnectionTimeout());
+         $this->assertEquals(23, $client->getRequestOptions()['delay']);
     }
-
-    private function assertUrl($url, $response, $version = 'v3')
-    {
-        static::assertSame('https://api.mailjet.com/'.$version.$url, $response->request->getUrl());
-    }
+	
 }

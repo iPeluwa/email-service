@@ -37,7 +37,7 @@ class ChromePHPFormatter implements FormatterInterface
     ];
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function format(array $record)
     {
@@ -68,7 +68,7 @@ class ChromePHPFormatter implements FormatterInterface
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function formatBatch(array $records)
     {

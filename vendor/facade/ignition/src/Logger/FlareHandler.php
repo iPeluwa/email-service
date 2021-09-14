@@ -5,7 +5,6 @@ namespace Facade\Ignition\Logger;
 use Facade\FlareClient\Flare;
 use Facade\FlareClient\Report;
 use Facade\Ignition\Ignition;
-use Facade\Ignition\Support\SentReports;
 use Facade\Ignition\Tabs\Tab;
 use Monolog\Handler\AbstractProcessingHandler;
 use Monolog\Logger;
@@ -16,16 +15,11 @@ class FlareHandler extends AbstractProcessingHandler
     /** @var \Facade\FlareClient\Flare */
     protected $flare;
 
-    /** @var \Facade\Ignition\Support\SentReports */
-    protected $sentReports;
-
     protected $minimumReportLogLevel = Logger::ERROR;
 
-    public function __construct(Flare $flare, SentReports $sentReports, $level = Logger::DEBUG, $bubble = true)
+    public function __construct(Flare $flare, $level = Logger::DEBUG, $bubble = true)
     {
         $this->flare = $flare;
-
-        $this->sentReports = $sentReports;
 
         parent::__construct($level, $bubble);
     }
@@ -39,37 +33,33 @@ class FlareHandler extends AbstractProcessingHandler
         $this->minimumReportLogLevel = $level;
     }
 
-    protected function write(array $record): void
+    protected function write(array $report): void
     {
-        if (! $this->shouldReport($record)) {
+        if (! $this->shouldReport($report)) {
             return;
         }
 
-        if ($this->hasException($record)) {
+        if ($this->hasException($report)) {
             /** @var Throwable $throwable */
-            $throwable = $record['context']['exception'];
+            $throwable = $report['context']['exception'];
 
             collect(Ignition::$tabs)
                 ->each(function (Tab $tab) use ($throwable) {
                     $tab->beforeRenderingErrorPage($this->flare, $throwable);
                 });
 
-            $report = $this->flare->report($record['context']['exception']);
-
-            if ($report) {
-                $this->sentReports->add($report);
-            }
+            $this->flare->report($report['context']['exception']);
 
             return;
         }
 
         if (config('flare.send_logs_as_events')) {
-            if ($this->hasValidLogLevel($record)) {
+            if ($this->hasValidLogLevel($report)) {
                 $this->flare->reportMessage(
-                    $record['message'],
-                    'Log ' . Logger::getLevelName($record['level']),
-                    function (Report $flareReport) use ($record) {
-                        foreach ($record['context'] as $key => $value) {
+                    $report['message'],
+                    'Log ' . Logger::getLevelName($report['level']),
+                    function (Report $flareReport) use ($report) {
+                        foreach ($report['context'] as $key => $value) {
                             $flareReport->context($key, $value);
                         }
                     }

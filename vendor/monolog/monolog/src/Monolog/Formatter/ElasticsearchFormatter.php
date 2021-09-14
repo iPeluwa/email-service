@@ -44,7 +44,7 @@ class ElasticsearchFormatter extends NormalizerFormatter
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function format(array $record)
     {

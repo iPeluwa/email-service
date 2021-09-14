@@ -79,13 +79,6 @@ SQL
                 }
 
                 break;
-
-            case 'varbinary':
-                if ($length === -1) {
-                    $dbType = 'blob';
-                }
-
-                break;
         }
 
         if ($dbType === 'char' || $dbType === 'nchar' || $dbType === 'binary') {
@@ -107,7 +100,7 @@ SQL
             'comment'       => $tableColumn['comment'] !== '' ? $tableColumn['comment'] : null,
         ];
 
-        if ($length !== 0 && ($type === 'text' || $type === 'string' || $type === 'binary')) {
+        if ($length !== 0 && ($type === 'text' || $type === 'string')) {
             $options['length'] = $length;
         }
 

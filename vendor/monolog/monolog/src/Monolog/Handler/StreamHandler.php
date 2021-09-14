@@ -64,7 +64,7 @@ class StreamHandler extends AbstractProcessingHandler
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function close(): void
     {
@@ -96,7 +96,7 @@ class StreamHandler extends AbstractProcessingHandler
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     protected function write(array $record): void
     {

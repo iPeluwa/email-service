@@ -97,7 +97,7 @@ abstract class AbstractSyslogHandler extends AbstractProcessingHandler
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     protected function getDefaultFormatter(): FormatterInterface
     {

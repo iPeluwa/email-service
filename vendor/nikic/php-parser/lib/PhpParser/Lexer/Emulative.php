@@ -13,7 +13,6 @@ use PhpParser\Lexer\TokenEmulator\FnTokenEmulator;
 use PhpParser\Lexer\TokenEmulator\MatchTokenEmulator;
 use PhpParser\Lexer\TokenEmulator\NullsafeTokenEmulator;
 use PhpParser\Lexer\TokenEmulator\NumericLiteralSeparatorEmulator;
-use PhpParser\Lexer\TokenEmulator\ReadonlyTokenEmulator;
 use PhpParser\Lexer\TokenEmulator\ReverseEmulator;
 use PhpParser\Lexer\TokenEmulator\TokenEmulator;
 
@@ -54,7 +53,6 @@ class Emulative extends Lexer
             new NullsafeTokenEmulator(),
             new AttributeEmulator(),
             new EnumTokenEmulator(),
-            new ReadonlyTokenEmulator(),
         ];
 
         // Collect emulators that are relevant for the PHP version we're running

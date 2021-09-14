@@ -85,7 +85,7 @@ class OverflowHandler extends AbstractHandler implements FormattableHandlerInter
      * Unless the bubbling is interrupted (by returning true), the Logger class will keep on
      * calling further handlers in the stack with a given log record.
      *
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function handle(array $record): bool
     {
@@ -122,7 +122,7 @@ class OverflowHandler extends AbstractHandler implements FormattableHandlerInter
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function setFormatter(FormatterInterface $formatter): HandlerInterface
     {
@@ -136,7 +136,7 @@ class OverflowHandler extends AbstractHandler implements FormattableHandlerInter
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function getFormatter(): FormatterInterface
     {

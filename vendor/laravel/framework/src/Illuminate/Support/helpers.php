@@ -216,7 +216,7 @@ if (! function_exists('retry')) {
      *
      * @param  int  $times
      * @param  callable  $callback
-     * @param  int|\Closure  $sleepMilliseconds
+     * @param  int  $sleepMilliseconds
      * @param  callable|null  $when
      * @return mixed
      *
@@ -238,7 +238,7 @@ if (! function_exists('retry')) {
             }
 
             if ($sleepMilliseconds) {
-                usleep(value($sleepMilliseconds, $attempts) * 1000);
+                usleep($sleepMilliseconds * 1000);
             }
 
             goto beginning;

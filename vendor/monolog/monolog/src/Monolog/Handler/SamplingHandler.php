@@ -103,7 +103,7 @@ class SamplingHandler extends AbstractHandler implements ProcessableHandlerInter
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function setFormatter(FormatterInterface $formatter): HandlerInterface
     {
@@ -118,7 +118,7 @@ class SamplingHandler extends AbstractHandler implements ProcessableHandlerInter
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function getFormatter(): FormatterInterface
     {

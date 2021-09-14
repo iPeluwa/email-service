@@ -86,7 +86,8 @@ final class Dumper
      */
     public static function export($var, int $maxDepth)
     {
-        $isObj = is_object($var);
+        $return = null;
+        $isObj  = is_object($var);
 
         if ($var instanceof Collection) {
             $var = $var->toArray();

@@ -190,10 +190,10 @@ class Flare
         return $this;
     }
 
-    public function report(Throwable $throwable, callable $callback = null): ?Report
+    public function report(Throwable $throwable, callable $callback = null)
     {
         if (! $this->shouldSendReport($throwable)) {
-            return null;
+            return;
         }
 
         $report = $this->createReport($throwable);
@@ -203,8 +203,6 @@ class Flare
         }
 
         $this->sendReportToApi($report);
-
-        return $report;
     }
 
     protected function shouldSendReport(Throwable $throwable): bool

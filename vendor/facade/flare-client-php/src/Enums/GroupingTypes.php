@@ -5,7 +5,7 @@ namespace Facade\FlareClient\Enums;
 /** @deprecated  */
 class GroupingTypes
 {
-    public const TOP_FRAME = 'topFrame';
+    const TOP_FRAME = 'topFrame';
 
-    public const EXCEPTION = 'exceptionClass';
+    const EXCEPTION = 'exceptionClass';
 }

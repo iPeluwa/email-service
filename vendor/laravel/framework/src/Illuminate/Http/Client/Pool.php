@@ -2,8 +2,6 @@
 
 namespace Illuminate\Http\Client;
 
-use GuzzleHttp\Utils;
-
 /**
  * @mixin \Illuminate\Http\Client\Factory
  */
@@ -17,11 +15,11 @@ class Pool
     protected $factory;
 
     /**
-     * The handler function for the Guzzle client.
+     * The client instance.
      *
-     * @var callable
+     * @var \GuzzleHttp\Client
      */
-    protected $handler;
+    protected $client;
 
     /**
      * The pool of requests.
@@ -40,11 +38,7 @@ class Pool
     {
         $this->factory = $factory ?: new Factory();
 
-        if (method_exists(Utils::class, 'chooseHandler')) {
-            $this->handler = Utils::chooseHandler();
-        } else {
-            $this->handler = \GuzzleHttp\choose_handler();
-        }
+        $this->client = $this->factory->buildClient();
     }
 
     /**
@@ -65,7 +59,7 @@ class Pool
      */
     protected function asyncRequest()
     {
-        return $this->factory->setHandler($this->handler)->async();
+        return $this->factory->setClient($this->client)->async();
     }
 
     /**

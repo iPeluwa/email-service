@@ -99,13 +99,6 @@ class PendingRequest
     protected $retryDelay = 100;
 
     /**
-     * The callback that will determine if the request should be retried.
-     *
-     * @var callable|null
-     */
-    protected $retryWhenCallback = null;
-
-    /**
      * The callbacks that should execute before the request is sent.
      *
      * @var \Illuminate\Support\Collection
@@ -188,7 +181,7 @@ class PendingRequest
     /**
      * Attach a raw body to the request.
      *
-     * @param  string  $content
+     * @param  resource|string  $content
      * @param  string  $contentType
      * @return $this
      */
@@ -227,7 +220,7 @@ class PendingRequest
      * Attach a file to the request.
      *
      * @param  string|array  $name
-     * @param  string|resource  $contents
+     * @param  string  $contents
      * @param  string|null  $filename
      * @param  array  $headers
      * @return $this
@@ -448,14 +441,12 @@ class PendingRequest
      *
      * @param  int  $times
      * @param  int  $sleep
-     * @param  callable|null  $when
      * @return $this
      */
-    public function retry(int $times, int $sleep = 0, ?callable $when = null)
+    public function retry(int $times, int $sleep = 0)
     {
         $this->tries = $times;
         $this->retryDelay = $sleep;
-        $this->retryWhenCallback = $when;
 
         return $this;
     }
@@ -688,7 +679,7 @@ class PendingRequest
 
                 throw new ConnectionException($e->getMessage(), 0, $e);
             }
-        }, $this->retryDelay ?? 100, $this->retryWhenCallback);
+        }, $this->retryDelay ?? 100);
     }
 
     /**
@@ -799,64 +790,20 @@ class PendingRequest
      */
     public function buildClient()
     {
-        return $this->requestsReusableClient()
-               ? $this->getReusableClient()
-               : $this->createClient($this->buildHandlerStack());
-    }
-
-    /**
-     * Determine if a reusable client is required.
-     *
-     * @return bool
-     */
-    protected function requestsReusableClient()
-    {
-        return ! is_null($this->client) || $this->async;
-    }
-
-    /**
-     * Retrieve a reusable Guzzle client.
-     *
-     * @return \GuzzleHttp\Client
-     */
-    protected function getReusableClient()
-    {
-        return $this->client = $this->client ?: $this->createClient($this->buildHandlerStack());
-    }
-
-    /**
-     * Create new Guzzle client.
-     *
-     * @param  \GuzzleHttp\HandlerStack  $handlerStack
-     * @return \GuzzleHttp\Client
-     */
-    public function createClient($handlerStack)
-    {
-        return new Client([
-            'handler' => $handlerStack,
+        return $this->client = $this->client ?: new Client([
+            'handler' => $this->buildHandlerStack(),
             'cookies' => true,
         ]);
     }
 
     /**
-     * Build the Guzzle client handler stack.
+     * Build the before sending handler stack.
      *
      * @return \GuzzleHttp\HandlerStack
      */
     public function buildHandlerStack()
     {
-        return $this->pushHandlers(HandlerStack::create());
-    }
-
-    /**
-     * Add the necessary handlers to the given handler stack.
-     *
-     * @param  \GuzzleHttp\HandlerStack  $handlerStack
-     * @return \GuzzleHttp\HandlerStack
-     */
-    public function pushHandlers($handlerStack)
-    {
-        return tap($handlerStack, function ($stack) {
+        return tap(HandlerStack::create(), function ($stack) {
             $stack->push($this->buildBeforeSendingHandler());
             $stack->push($this->buildRecorderHandler());
             $stack->push($this->buildStubHandler());
@@ -1072,21 +1019,6 @@ class PendingRequest
     public function setClient(Client $client)
     {
         $this->client = $client;
-
-        return $this;
-    }
-
-    /**
-     * Create a new client instance using the given handler.
-     *
-     * @param  callable  $handler
-     * @return $this
-     */
-    public function setHandler($handler)
-    {
-        $this->client = $this->createClient(
-            $this->pushHandlers(HandlerStack::create($handler))
-        );
 
         return $this;
     }

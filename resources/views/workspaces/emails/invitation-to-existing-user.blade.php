@@ -1,7 +1,13 @@
-<p>{{__('Hi!')}}</p>
+{{__('Hi!')}}
 
-<p>{{__(':userName has added you to their workspace on SendPortal!', ['userName' => $invitation->workspace->owner->name])}}</p>
+<br><br>
 
-<p>{{__('Since you already have an account, you have automatically been added to the workspace.')}}</p>
+{{__(':userName has invited you to join their workspace on SendPortal!', ['userName' => $invitation->workspace->owner->name])}}
 
-<p>{{__('See you soon!')}}</p>
+<br><br>
+
+{{__('Since you already have an account, you may accept the invitation from your account settings screen.')}}
+
+<br><br>
+
+{{__('See you soon!')}}

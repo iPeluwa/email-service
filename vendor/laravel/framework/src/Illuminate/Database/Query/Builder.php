@@ -12,6 +12,8 @@ use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Database\Query\Grammars\Grammar;
 use Illuminate\Database\Query\Processors\Processor;
+use Illuminate\Pagination\CursorPaginationException;
+use Illuminate\Pagination\CursorPaginator;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
@@ -195,7 +197,7 @@ class Builder
     public $operators = [
         '=', '<', '>', '<=', '>=', '<>', '!=', '<=>',
         'like', 'like binary', 'not like', 'ilike',
-        '&', '|', '^', '<<', '>>', '&~',
+        '&', '|', '^', '<<', '>>',
         'rlike', 'not rlike', 'regexp', 'not regexp',
         '~', '~*', '!~', '!~*', 'similar to',
         'not similar to', 'not ilike', '~~*', '!~~*',
@@ -407,7 +409,6 @@ class Builder
     /**
      * Force the query to only return distinct results.
      *
-     * @param  mixed  ...$distinct
      * @return $this
      */
     public function distinct()
@@ -1993,7 +1994,7 @@ class Builder
     /**
      * Add a descending "order by" clause to the query.
      *
-     * @param  \Closure|\Illuminate\Database\Query\Builder|\Illuminate\Database\Query\Expression|string  $column
+     * @param  string  $column
      * @return $this
      */
     public function orderByDesc($column)
@@ -2004,7 +2005,7 @@ class Builder
     /**
      * Add an "order by" clause for a timestamp to the query.
      *
-     * @param  \Closure|\Illuminate\Database\Query\Builder|\Illuminate\Database\Query\Expression|string  $column
+     * @param  string  $column
      * @return $this
      */
     public function latest($column = 'created_at')
@@ -2015,7 +2016,7 @@ class Builder
     /**
      * Add an "order by" clause for a timestamp to the query.
      *
-     * @param  \Closure|\Illuminate\Database\Query\Builder|\Illuminate\Database\Query\Expression|string  $column
+     * @param  string  $column
      * @return $this
      */
     public function oldest($column = 'created_at')
@@ -2161,7 +2162,7 @@ class Builder
     /**
      * Remove all existing orders and optionally add a new order.
      *
-     * @param  \Closure|\Illuminate\Database\Query\Builder|\Illuminate\Database\Query\Expression|string|null  $column
+     * @param  string|null  $column
      * @param  string  $direction
      * @return $this
      */
@@ -2405,12 +2406,37 @@ class Builder
      * @param  int|null  $perPage
      * @param  array  $columns
      * @param  string  $cursorName
-     * @param  \Illuminate\Pagination\Cursor|string|null  $cursor
+     * @param  string|null  $cursor
      * @return \Illuminate\Contracts\Pagination\CursorPaginator
+     * @throws \Illuminate\Pagination\CursorPaginationException
      */
     public function cursorPaginate($perPage = 15, $columns = ['*'], $cursorName = 'cursor', $cursor = null)
     {
-        return $this->paginateUsingCursor($perPage, $columns, $cursorName, $cursor);
+        $cursor = $cursor ?: CursorPaginator::resolveCurrentCursor($cursorName);
+
+        $orders = $this->ensureOrderForCursorPagination(! is_null($cursor) && $cursor->pointsToPreviousItems());
+
+        $orderDirection = $orders->first()['direction'] ?? 'asc';
+
+        $comparisonOperator = $orderDirection === 'asc' ? '>' : '<';
+
+        $parameters = $orders->pluck('column')->toArray();
+
+        if (! is_null($cursor)) {
+            if (count($parameters) === 1) {
+                $this->where($column = $parameters[0], $comparisonOperator, $cursor->parameter($column));
+            } elseif (count($parameters) > 1) {
+                $this->whereRowValues($parameters, $comparisonOperator, $cursor->parameters($parameters));
+            }
+        }
+
+        $this->limit($perPage + 1);
+
+        return $this->cursorPaginator($this->get($columns), $perPage, $cursor, [
+            'path' => Paginator::resolveCurrentPath(),
+            'cursorName' => $cursorName,
+            'parameters' => $parameters,
+        ]);
     }
 
     /**
@@ -2418,10 +2444,17 @@ class Builder
      *
      * @param  bool  $shouldReverse
      * @return \Illuminate\Support\Collection
+     * @throws \Illuminate\Pagination\CursorPaginationException
      */
     protected function ensureOrderForCursorPagination($shouldReverse = false)
     {
         $this->enforceOrderBy();
+
+        $orderDirections = collect($this->orders)->pluck('direction')->unique();
+
+        if ($orderDirections->count() > 1) {
+            throw new CursorPaginationException('Only a single order by direction is supported when using cursor pagination.');
+        }
 
         if ($shouldReverse) {
             $this->orders = collect($this->orders)->map(function ($order) {

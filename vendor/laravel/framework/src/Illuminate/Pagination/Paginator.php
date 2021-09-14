@@ -10,6 +10,7 @@ use Illuminate\Contracts\Support\Jsonable;
 use Illuminate\Support\Collection;
 use IteratorAggregate;
 use JsonSerializable;
+use ReturnTypeWillChange;
 
 class Paginator extends AbstractPaginator implements Arrayable, ArrayAccess, Countable, IteratorAggregate, Jsonable, JsonSerializable, PaginatorContract
 {
@@ -26,7 +27,7 @@ class Paginator extends AbstractPaginator implements Arrayable, ArrayAccess, Cou
      * @param  mixed  $items
      * @param  int  $perPage
      * @param  int|null  $currentPage
-     * @param  array  $options  (path, query, fragment, pageName)
+     * @param  array  $options (path, query, fragment, pageName)
      * @return void
      */
     public function __construct($items, $perPage, $currentPage = null, array $options = [])
@@ -158,7 +159,7 @@ class Paginator extends AbstractPaginator implements Arrayable, ArrayAccess, Cou
      *
      * @return array
      */
-    #[\ReturnTypeWillChange]
+    #[ReturnTypeWillChange]
     public function jsonSerialize()
     {
         return $this->toArray();

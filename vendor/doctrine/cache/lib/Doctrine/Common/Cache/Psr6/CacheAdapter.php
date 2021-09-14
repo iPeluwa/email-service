@@ -23,8 +23,6 @@ use function microtime;
 use function sprintf;
 use function strpbrk;
 
-use const PHP_VERSION_ID;
-
 final class CacheAdapter implements CacheItemPoolInterface
 {
     private const RESERVED_CHARACTERS = '{}()/\@:';
@@ -32,16 +30,16 @@ final class CacheAdapter implements CacheItemPoolInterface
     /** @var Cache */
     private $cache;
 
-    /** @var array<CacheItem|TypedCacheItem> */
+    /** @var CacheItem[] */
     private $deferredItems = [];
 
     public static function wrap(Cache $cache): CacheItemPoolInterface
     {
-        if ($cache instanceof DoctrineProvider && ! $cache->getNamespace()) {
+        if ($cache instanceof DoctrineProvider) {
             return $cache->getPool();
         }
 
-        if ($cache instanceof SymfonyDoctrineProvider && ! $cache->getNamespace()) {
+        if ($cache instanceof SymfonyDoctrineProvider) {
             $getPool = function () {
                 // phpcs:ignore Squiz.Scope.StaticThisUsage.Found
                 return $this->pool;
@@ -77,14 +75,6 @@ final class CacheAdapter implements CacheItemPoolInterface
 
         $value = $this->cache->fetch($key);
 
-        if (PHP_VERSION_ID >= 80000) {
-            if ($value !== false) {
-                return new TypedCacheItem($key, $value, true);
-            }
-
-            return new TypedCacheItem($key, null, false);
-        }
-
         if ($value !== false) {
             return new CacheItem($key, $value, true);
         }
@@ -105,19 +95,6 @@ final class CacheAdapter implements CacheItemPoolInterface
 
         $values = $this->doFetchMultiple($keys);
         $items  = [];
-
-        if (PHP_VERSION_ID >= 80000) {
-            foreach ($keys as $key) {
-                if (array_key_exists($key, $values)) {
-                    $items[$key] = new TypedCacheItem($key, $values[$key], true);
-                } else {
-                    $items[$key] = new TypedCacheItem($key, null, false);
-                }
-            }
-
-            return $items;
-        }
-
         foreach ($keys as $key) {
             if (array_key_exists($key, $values)) {
                 $items[$key] = new CacheItem($key, $values[$key], true);
@@ -185,7 +162,7 @@ final class CacheAdapter implements CacheItemPoolInterface
 
     public function saveDeferred(CacheItemInterface $item): bool
     {
-        if (! $item instanceof CacheItem && ! $item instanceof TypedCacheItem) {
+        if (! $item instanceof CacheItem) {
             return false;
         }
 
@@ -217,8 +194,6 @@ final class CacheAdapter implements CacheItemPoolInterface
             ++$itemsCount;
             $byLifetime[(int) $lifetime][$key] = $item->get();
         }
-
-        $this->deferredItems = [];
 
         switch (count($expiredKeys)) {
             case 0:

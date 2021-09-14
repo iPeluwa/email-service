@@ -73,7 +73,7 @@ class ElasticaHandler extends AbstractProcessingHandler
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function setFormatter(FormatterInterface $formatter): HandlerInterface
     {
@@ -101,7 +101,7 @@ class ElasticaHandler extends AbstractProcessingHandler
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function handleBatch(array $records): void
     {

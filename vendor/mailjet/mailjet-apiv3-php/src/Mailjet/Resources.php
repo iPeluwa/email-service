@@ -1,27 +1,16 @@
 <?php
-
-declare(strict_types=1);
-
-/*
- * Copyright (C) 2013 Mailgun
- *
- * This software may be modified and distributed under the terms
- * of the MIT license. See the LICENSE file for details.
- */
-
 namespace Mailjet;
 
 /**
- * PHP version 7.2.
+ * PHP version 5
  *
  * This is the Mailjet Resources Class
  *
  * @category Mailjet_API
- *
+ * @package Mailjet-apiv3
  * @author Guillaume Badi <gbadi@mailjet.com>
  * @license MIT https://opensource.org/licenses/MIT
- *
- * @see dev.mailjet.com
+ * @link dev.mailjet.com
  */
 class Resources
 {

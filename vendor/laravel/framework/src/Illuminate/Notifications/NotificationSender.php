@@ -162,11 +162,6 @@ class NotificationSender
      */
     protected function shouldSendNotification($notifiable, $notification, $channel)
     {
-        if (method_exists($notification, 'shouldSend') &&
-            $notification->shouldSend($notifiable, $channel) === false) {
-            return false;
-        }
-
         return $this->events->until(
             new NotificationSending($notifiable, $notification, $channel)
         ) !== false;

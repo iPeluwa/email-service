@@ -291,7 +291,6 @@ class DB2Platform extends AbstractPlatform
                  c.colname,
                  c.colno,
                  c.typename,
-                 c.codepage,
                  c.nulls,
                  c.length,
                  c.scale,
@@ -415,17 +414,17 @@ class DB2Platform extends AbstractPlatform
     /**
      * {@inheritDoc}
      */
-    public function getCreateDatabaseSQL($name)
+    public function getCreateDatabaseSQL($database)
     {
-        return 'CREATE DATABASE ' . $name;
+        return 'CREATE DATABASE ' . $database;
     }
 
     /**
      * {@inheritDoc}
      */
-    public function getDropDatabaseSQL($name)
+    public function getDropDatabaseSQL($database)
     {
-        return 'DROP DATABASE ' . $name;
+        return 'DROP DATABASE ' . $database;
     }
 
     /**

@@ -4,6 +4,7 @@ namespace Illuminate\Http\Concerns;
 
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Str;
 use SplFileInfo;
 use stdClass;
 use Symfony\Component\VarDumper\VarDumper;
@@ -54,12 +55,8 @@ trait InteractsWithInput
     {
         $header = $this->header('Authorization', '');
 
-        $position = strrpos($header, 'Bearer');
-
-        if ($position !== false) {
-            $header = substr($header, $position + 7);
-
-            return strpos($header, ',') !== false ? strstr(',', $header, true) : $header;
+        if (Str::startsWith($header, 'Bearer ')) {
+            return Str::substr($header, 7);
         }
     }
 
@@ -115,17 +112,12 @@ trait InteractsWithInput
      *
      * @param  string  $key
      * @param  callable  $callback
-     * @param  callable|null  $default
      * @return $this|mixed
      */
-    public function whenHas($key, callable $callback, callable $default = null)
+    public function whenHas($key, callable $callback)
     {
         if ($this->has($key)) {
             return $callback(data_get($this->all(), $key)) ?: $this;
-        }
-
-        if ($default) {
-            return $default();
         }
 
         return $this;
@@ -193,17 +185,12 @@ trait InteractsWithInput
      *
      * @param  string  $key
      * @param  callable  $callback
-     * @param  callable|null  $default
      * @return $this|mixed
      */
-    public function whenFilled($key, callable $callback, callable $default = null)
+    public function whenFilled($key, callable $callback)
     {
         if ($this->filled($key)) {
             return $callback(data_get($this->all(), $key)) ?: $this;
-        }
-
-        if ($default) {
-            return $default();
         }
 
         return $this;

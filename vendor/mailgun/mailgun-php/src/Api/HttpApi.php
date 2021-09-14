@@ -99,8 +99,6 @@ abstract class HttpApi
                 throw HttpClientException::conflict($response);
             case 413:
                 throw HttpClientException::payloadTooLarge($response);
-            case 429:
-                throw HttpClientException::tooManyRequests($response);
             case 500 <= $statusCode:
                 throw HttpServerException::serverError($statusCode);
             default:
@@ -118,7 +116,7 @@ abstract class HttpApi
     protected function httpGet(string $path, array $parameters = [], array $requestHeaders = []): ResponseInterface
     {
         if (count($parameters) > 0) {
-            $path .= '?'.http_build_query($parameters);
+            $path .= '?'.urldecode(http_build_query($parameters));
         }
 
         try {

@@ -20,7 +20,7 @@ class QueryCacheProfile
     private $resultCacheDriver;
 
     /** @var int */
-    private $lifetime;
+    private $lifetime = 0;
 
     /** @var string|null */
     private $cacheKey;

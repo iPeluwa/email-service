@@ -69,7 +69,7 @@ class JsonFormatter extends NormalizerFormatter
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function format(array $record): string
     {
@@ -94,7 +94,7 @@ class JsonFormatter extends NormalizerFormatter
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function formatBatch(array $records): string
     {

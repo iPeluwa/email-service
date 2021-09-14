@@ -126,7 +126,7 @@ class Worker
      */
     public function daemon($connectionName, $queue, WorkerOptions $options)
     {
-        if ($supportsAsyncSignals = $this->supportsAsyncSignals()) {
+        if ($this->supportsAsyncSignals()) {
             $this->listenForSignals();
         }
 
@@ -159,7 +159,7 @@ class Worker
                 $this->manager->connection($connectionName), $queue
             );
 
-            if ($supportsAsyncSignals) {
+            if ($this->supportsAsyncSignals()) {
                 $this->registerTimeoutHandler($job, $options);
             }
 
@@ -178,7 +178,7 @@ class Worker
                 $this->sleep($options->sleep);
             }
 
-            if ($supportsAsyncSignals) {
+            if ($this->supportsAsyncSignals()) {
                 $this->resetTimeoutHandler();
             }
 

@@ -22,13 +22,6 @@ class ParallelRunner implements RunnerInterface
     protected static $applicationResolver;
 
     /**
-     * The runner resolver callback.
-     *
-     * @var \Closure|null
-     */
-    protected static $runnerResolver;
-
-    /**
      * The original test runner options.
      *
      * @var \ParaTest\Runners\PHPUnit\Options
@@ -64,11 +57,7 @@ class ParallelRunner implements RunnerInterface
             $output = new ParallelConsoleOutput($output);
         }
 
-        $runnerResolver = static::$runnerResolver ?: function (Options $options, OutputInterface $output) {
-            return new WrapperRunner($options, $output);
-        };
-
-        $this->runner = call_user_func($runnerResolver, $options, $output);
+        $this->runner = new WrapperRunner($options, $output);
     }
 
     /**
@@ -80,17 +69,6 @@ class ParallelRunner implements RunnerInterface
     public static function resolveApplicationUsing($resolver)
     {
         static::$applicationResolver = $resolver;
-    }
-
-    /**
-     * Set the runner resolver callback.
-     *
-     * @param  \Closure|null  $resolver
-     * @return void
-     */
-    public static function resolveRunnerUsing($resolver)
-    {
-        static::$runnerResolver = $resolver;
     }
 
     /**

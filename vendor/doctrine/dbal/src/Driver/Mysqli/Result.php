@@ -131,7 +131,10 @@ final class Result implements ResultInterface
             return false;
         }
 
-        return array_combine($this->columnNames, $values);
+        $row = array_combine($this->columnNames, $values);
+        assert(is_array($row));
+
+        return $row;
     }
 
     /**

@@ -52,7 +52,7 @@ class WildfireFormatter extends NormalizerFormatter
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      *
      * @return string
      */
@@ -114,7 +114,7 @@ class WildfireFormatter extends NormalizerFormatter
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      *
      * @phpstan-return never
      */
@@ -124,7 +124,7 @@ class WildfireFormatter extends NormalizerFormatter
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      *
      * @return null|scalar|array<array|scalar|null>|object
      */

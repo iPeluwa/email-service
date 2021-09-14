@@ -7,7 +7,6 @@ namespace App\Providers;
 use App\Models\ApiToken;
 use App\Http\Livewire\Setup;
 use App\Models\User;
-use Illuminate\Pagination\Paginator;
 use Illuminate\Support\ServiceProvider;
 use Livewire\Livewire;
 use RuntimeException;
@@ -25,8 +24,6 @@ class AppServiceProvider extends ServiceProvider
 
     public function boot(): void
     {
-        Paginator::useBootstrap();
-
         Sendportal::setCurrentWorkspaceIdResolver(
             static function () {
                 /** @var User $user */

@@ -10,6 +10,7 @@ use Illuminate\Contracts\Container\Container;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Contracts\Mail\Mailer;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Reflector;
 use Illuminate\Support\Stringable;
@@ -321,10 +322,10 @@ class Event
      */
     protected function expressionPasses()
     {
-        $date = Date::now();
+        $date = Carbon::now();
 
         if ($this->timezone) {
-            $date = $date->setTimezone($this->timezone);
+            $date->setTimezone($this->timezone);
         }
 
         return (new CronExpression($this->expression))->isDue($date->toDateTimeString());
@@ -579,7 +580,7 @@ class Event
         return function (Container $container, HttpClient $http) use ($url) {
             try {
                 $http->request('GET', $url);
-            } catch (ClientExceptionInterface|TransferException $e) {
+            } catch (ClientExceptionInterface | TransferException $e) {
                 $container->make(ExceptionHandler::class)->report($e);
             }
         };

@@ -57,7 +57,7 @@ class ZendMonitorHandler extends AbstractProcessingHandler
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     protected function write(array $record): void
     {
@@ -84,7 +84,7 @@ class ZendMonitorHandler extends AbstractProcessingHandler
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function getDefaultFormatter(): FormatterInterface
     {

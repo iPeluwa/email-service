@@ -2,7 +2,6 @@
 
 namespace Illuminate\Database\Eloquent\Concerns;
 
-use Carbon\CarbonImmutable;
 use Carbon\CarbonInterface;
 use DateTimeInterface;
 use Illuminate\Contracts\Database\Eloquent\Castable;
@@ -79,9 +78,6 @@ trait HasAttributes
         'encrypted:json',
         'encrypted:object',
         'float',
-        'immutable_date',
-        'immutable_datetime',
-        'immutable_custom_datetime',
         'int',
         'integer',
         'json',
@@ -244,12 +240,12 @@ trait HasAttributes
             // If the attribute cast was a date or a datetime, we will serialize the date as
             // a string. This allows the developers to customize how dates are serialized
             // into an array without affecting how they are persisted into the storage.
-            if ($attributes[$key] && in_array($value, ['date', 'datetime', 'immutable_date', 'immutable_datetime'])) {
+            if ($attributes[$key] &&
+                ($value === 'date' || $value === 'datetime')) {
                 $attributes[$key] = $this->serializeDate($attributes[$key]);
             }
 
-            if ($attributes[$key] && ($this->isCustomDateTimeCast($value) ||
-                $this->isImmutableCustomDateTimeCast($value))) {
+            if ($attributes[$key] && $this->isCustomDateTimeCast($value)) {
                 $attributes[$key] = $attributes[$key]->format(explode(':', $value, 2)[1]);
             }
 
@@ -541,8 +537,8 @@ trait HasAttributes
     protected function mutateAttributeForArray($key, $value)
     {
         $value = $this->isClassCastable($key)
-            ? $this->getClassCastableAttributeValue($key, $value)
-            : $this->mutateAttribute($key, $value);
+                    ? $this->getClassCastableAttributeValue($key, $value)
+                    : $this->mutateAttribute($key, $value);
 
         return $value instanceof Arrayable ? $value->toArray() : $value;
     }
@@ -611,11 +607,6 @@ trait HasAttributes
             case 'datetime':
             case 'custom_datetime':
                 return $this->asDateTime($value);
-            case 'immutable_date':
-                return $this->asDate($value)->toImmutable();
-            case 'immutable_custom_datetime':
-            case 'immutable_datetime':
-                return $this->asDateTime($value)->toImmutable();
             case 'timestamp':
                 return $this->asTimestamp($value);
         }
@@ -642,8 +633,8 @@ trait HasAttributes
             $caster = $this->resolveCasterClass($key);
 
             $value = $caster instanceof CastsInboundAttributes
-                ? $value
-                : $caster->get($this, $key, $value, $this->attributes);
+                        ? $value
+                        : $caster->get($this, $key, $value, $this->attributes);
 
             if ($caster instanceof CastsInboundAttributes || ! is_object($value)) {
                 unset($this->classCastCache[$key]);
@@ -665,10 +656,6 @@ trait HasAttributes
     {
         if ($this->isCustomDateTimeCast($this->getCasts()[$key])) {
             return 'custom_datetime';
-        }
-
-        if ($this->isImmutableCustomDateTimeCast($this->getCasts()[$key])) {
-            return 'immutable_custom_datetime';
         }
 
         if ($this->isDecimalCast($this->getCasts()[$key])) {
@@ -717,18 +704,6 @@ trait HasAttributes
     {
         return strncmp($cast, 'date:', 5) === 0 ||
                strncmp($cast, 'datetime:', 9) === 0;
-    }
-
-    /**
-     * Determine if the cast type is an immutable custom date time cast.
-     *
-     * @param  string  $cast
-     * @return bool
-     */
-    protected function isImmutableCustomDateTimeCast($cast)
-    {
-        return strncmp($cast, 'immutable_date:', 15) === 0 ||
-               strncmp($cast, 'immutable_datetime:', 19) === 0;
     }
 
     /**
@@ -823,7 +798,7 @@ trait HasAttributes
     protected function isDateAttribute($key)
     {
         return in_array($key, $this->getDates(), true) ||
-            $this->isDateCastable($key);
+               $this->isDateCastable($key);
     }
 
     /**
@@ -842,8 +817,8 @@ trait HasAttributes
         ));
 
         $this->attributes[$key] = $this->isEncryptedCastable($key)
-            ? $this->castAttributeAsEncryptedString($key, $value)
-            : $value;
+                    ? $this->castAttributeAsEncryptedString($key, $value)
+                    : $value;
 
         return $this;
     }
@@ -912,8 +887,8 @@ trait HasAttributes
 
         return $this->fromJson(
             $this->isEncryptedCastable($key)
-                ? $this->fromEncryptedString($this->attributes[$key])
-                : $this->attributes[$key]
+                    ? $this->fromEncryptedString($this->attributes[$key])
+                    : $this->attributes[$key]
         );
     }
 
@@ -1132,9 +1107,7 @@ trait HasAttributes
      */
     protected function serializeDate(DateTimeInterface $date)
     {
-        return $date instanceof \DateTimeImmutable ?
-            CarbonImmutable::instance($date)->toJSON() :
-            Carbon::instance($date)->toJSON();
+        return Carbon::instance($date)->toJSON();
     }
 
     /**
@@ -1217,7 +1190,7 @@ trait HasAttributes
      */
     protected function isDateCastable($key)
     {
-        return $this->hasCast($key, ['date', 'datetime', 'immutable_date', 'immutable_datetime']);
+        return $this->hasCast($key, ['date', 'datetime']);
     }
 
     /**
@@ -1295,7 +1268,7 @@ trait HasAttributes
     protected function isClassSerializable($key)
     {
         return $this->isClassCastable($key) &&
-            method_exists($this->parseCasterClass($this->getCasts()[$key]), 'serialize');
+               method_exists($this->parseCasterClass($this->getCasts()[$key]), 'serialize');
     }
 
     /**
@@ -1337,8 +1310,8 @@ trait HasAttributes
     protected function parseCasterClass($class)
     {
         return strpos($class, ':') === false
-            ? $class
-            : explode(':', $class, 2)[0];
+                        ? $class
+                        : explode(':', $class, 2)[0];
     }
 
     /**
@@ -1354,8 +1327,8 @@ trait HasAttributes
             $this->attributes = array_merge(
                 $this->attributes,
                 $caster instanceof CastsInboundAttributes
-                    ? [$key => $value]
-                    : $this->normalizeCastClassResponse($key, $caster->set($this, $key, $value, $this->attributes))
+                       ? [$key => $value]
+                       : $this->normalizeCastClassResponse($key, $caster->set($this, $key, $value, $this->attributes))
             );
         }
     }
@@ -1645,7 +1618,7 @@ trait HasAttributes
             return false;
         } elseif ($this->isDateAttribute($key)) {
             return $this->fromDateTime($attribute) ===
-                $this->fromDateTime($original);
+                   $this->fromDateTime($original);
         } elseif ($this->hasCast($key, ['object', 'collection'])) {
             return $this->castAttribute($key, $attribute) ==
                 $this->castAttribute($key, $original);
@@ -1657,11 +1630,11 @@ trait HasAttributes
             return abs($this->castAttribute($key, $attribute) - $this->castAttribute($key, $original)) < PHP_FLOAT_EPSILON * 4;
         } elseif ($this->hasCast($key, static::$primitiveCastTypes)) {
             return $this->castAttribute($key, $attribute) ===
-                $this->castAttribute($key, $original);
+                   $this->castAttribute($key, $original);
         }
 
         return is_numeric($attribute) && is_numeric($original)
-            && strcmp((string) $attribute, (string) $original) === 0;
+               && strcmp((string) $attribute, (string) $original) === 0;
     }
 
     /**

@@ -79,7 +79,7 @@ class FleepHookHandler extends SocketHandler
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     protected function generateDataStream(array $record): string
     {

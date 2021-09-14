@@ -24,7 +24,7 @@ use Monolog\Formatter\HtmlFormatter;
 abstract class MailHandler extends AbstractProcessingHandler
 {
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function handleBatch(array $records): void
     {
@@ -55,7 +55,7 @@ abstract class MailHandler extends AbstractProcessingHandler
     abstract protected function send(string $content, array $records): void;
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     protected function write(array $record): void
     {

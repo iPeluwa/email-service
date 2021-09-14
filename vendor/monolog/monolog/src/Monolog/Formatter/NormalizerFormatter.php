@@ -46,7 +46,7 @@ class NormalizerFormatter implements FormatterInterface
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      *
      * @param mixed[] $record
      */
@@ -56,7 +56,7 @@ class NormalizerFormatter implements FormatterInterface
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function formatBatch(array $records)
     {

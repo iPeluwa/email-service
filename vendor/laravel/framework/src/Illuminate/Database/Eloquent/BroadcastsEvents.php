@@ -111,10 +111,6 @@ trait BroadcastsEvents
      */
     protected function broadcastIfBroadcastChannelsExistForEvent($instance, $event, $channels = null)
     {
-        if (! static::$isBroadcasting) {
-            return;
-        }
-
         if (! empty($this->broadcastOn($event)) || ! empty($channels)) {
             return broadcast($instance->onChannels(Arr::wrap($channels)));
         }
@@ -128,7 +124,7 @@ trait BroadcastsEvents
      */
     public function newBroadcastableModelEvent($event)
     {
-        return tap($this->newBroadcastableEvent($event), function ($event) {
+        return tap(new BroadcastableModelEventOccurred($this, $event), function ($event) {
             $event->connection = property_exists($this, 'broadcastConnection')
                             ? $this->broadcastConnection
                             : $this->broadcastConnection();
@@ -141,17 +137,6 @@ trait BroadcastsEvents
                             ? $this->broadcastAfterCommit
                             : $this->broadcastAfterCommit();
         });
-    }
-
-    /**
-     * Create a new broadcastable model event for the model.
-     *
-     * @param  string  $event
-     * @return \Illuminate\Database\Eloquent\BroadcastableModelEventOccurred
-     */
-    protected function newBroadcastableEvent($event)
-    {
-        return new BroadcastableModelEventOccurred($this, $event);
     }
 
     /**

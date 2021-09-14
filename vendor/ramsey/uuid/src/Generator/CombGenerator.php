@@ -107,7 +107,7 @@ class CombGenerator implements RandomGeneratorInterface
 
         return (string) hex2bin(
             str_pad(
-                bin2hex($hash),
+                bin2hex((string) $hash),
                 $length - self::TIMESTAMP_BYTES,
                 '0'
             )

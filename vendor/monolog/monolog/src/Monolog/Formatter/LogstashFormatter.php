@@ -59,7 +59,7 @@ class LogstashFormatter extends NormalizerFormatter
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function format(array $record): string
     {

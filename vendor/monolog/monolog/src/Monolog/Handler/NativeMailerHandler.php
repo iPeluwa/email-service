@@ -109,7 +109,7 @@ class NativeMailerHandler extends MailHandler
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     protected function send(string $content, array $records): void
     {
