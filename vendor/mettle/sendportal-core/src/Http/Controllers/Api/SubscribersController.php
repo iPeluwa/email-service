@@ -52,7 +52,7 @@ class SubscribersController extends Controller
 
         $subscriber->load('tags');
         return (new SubscriberResource($subscriber))
-               ->response("Subscribed Successfully")
+               ->message("Subscribed Successfully")
                ->setStatusCode(200);
     }
 
