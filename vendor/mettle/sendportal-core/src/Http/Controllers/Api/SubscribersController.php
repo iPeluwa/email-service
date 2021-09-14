@@ -52,8 +52,7 @@ class SubscribersController extends Controller
         $subscriber = $this->apiService->storeOrUpdate($workspaceId, collect($request->validated()));
 
         $subscriber->load('tags');
-        return (new SubscriberResource($subscriber))
-               ->response()->json([
+        return (new SubscriberResource($subscriber))->response()->json([
             'message' => 'Ta-da!!, Your account has been created successfully 🥰. Verification email has been sent!',
         ], 201);
               
