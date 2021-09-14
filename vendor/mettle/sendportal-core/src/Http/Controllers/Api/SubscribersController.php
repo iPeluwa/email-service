@@ -52,8 +52,11 @@ class SubscribersController extends Controller
 
         $subscriber->load('tags');
         return (new SubscriberResource($subscriber))
-               ->message("Subscribed Successfully")
-               ->setStatusCode(200);
+               ->response()->json([
+            'message' => 'Ta-da!!, Your account has been created successfully 🥰. Verification email has been sent!',
+            'user' => $user
+        ], 201);
+              
     }
 
     /**
