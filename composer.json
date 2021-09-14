@@ -13,7 +13,12 @@
         "laravel/tinker": "^2.5",
         "livewire/livewire": "^2.3",
         "laravel/ui": "^3.0",
+<<<<<<< HEAD
         "mettle/sendportal-core": "^2.0"
+=======
+        "mettle/sendportal-core": "^2.0",
+        "ext-redis": "^6.2.4"
+>>>>>>> parent of d3a0b53 (Update)
     },
     "require-dev": {
         "roave/security-advisories": "dev-master",
