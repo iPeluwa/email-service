@@ -785,6 +785,12 @@ SQL
             }
         }
 
+        if (isset($options['uniqueConstraints'])) {
+            foreach ($options['uniqueConstraints'] as $uniqueConstraint) {
+                $sql[] = $this->getCreateConstraintSQL($uniqueConstraint, $name);
+            }
+        }
+
         if (isset($options['foreignKeys'])) {
             foreach ((array) $options['foreignKeys'] as $definition) {
                 $sql[] = $this->getCreateForeignKeySQL($definition, $name);
@@ -912,7 +918,7 @@ SQL
      */
     public function convertFromBoolean($item)
     {
-        if (in_array(strtolower($item), $this->booleanLiterals['false'], true)) {
+        if ($item !== null && in_array(strtolower($item), $this->booleanLiterals['false'], true)) {
             return false;
         }
 

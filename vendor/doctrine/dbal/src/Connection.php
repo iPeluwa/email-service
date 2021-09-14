@@ -325,8 +325,6 @@ class Connection
             throw $this->convertException($e);
         }
 
-        $this->transactionNestingLevel = 0;
-
         if ($this->autoCommit === false) {
             $this->beginTransaction();
         }
@@ -641,7 +639,8 @@ class Connection
      */
     public function close()
     {
-        $this->_conn = null;
+        $this->_conn                   = null;
+        $this->transactionNestingLevel = 0;
     }
 
     /**
@@ -761,7 +760,7 @@ class Connection
     {
         $typeValues = [];
 
-        foreach ($columnList as $columnIndex => $columnName) {
+        foreach ($columnList as $columnName) {
             $typeValues[] = $types[$columnName] ?? ParameterType::STRING;
         }
 
